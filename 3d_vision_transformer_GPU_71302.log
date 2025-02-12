@@ -1,0 +1,362 @@
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+torch.Size([16])
+torch.Size([16, 1, 128, 256, 256])
+Initializing data loader
+Getting dataloaders
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+Finished loading the data
+Device: cuda
+Epoch 1: train_loss 11.1739, train_text_loss 10.3362, val_loss 10.9541, val_text_loss 10.2651, train_acc 0.5679, val_acc 0.6071
+Epoch 2: train_loss 11.1258, train_text_loss 10.2357, val_loss 11.3089, val_text_loss 10.1858, train_acc 0.5185, val_acc 0.3929
+Epoch 3: train_loss 10.9819, train_text_loss 10.1618, val_loss 10.7948, val_text_loss 10.1166, train_acc 0.4444, val_acc 0.5357
+Epoch 4: train_loss 10.8421, train_text_loss 10.0928, val_loss 10.7184, val_text_loss 10.0449, train_acc 0.5926, val_acc 0.6071
+Epoch 5: train_loss 10.6318, train_text_loss 10.0296, val_loss 10.7396, val_text_loss 9.9711, train_acc 0.6667, val_acc 0.4643
+Epoch 6: train_loss 10.7075, train_text_loss 9.9552, val_loss 10.6464, val_text_loss 9.8982, train_acc 0.5926, val_acc 0.4643
+Epoch 7: train_loss 10.6446, train_text_loss 9.8900, val_loss 10.4783, val_text_loss 9.8283, train_acc 0.5802, val_acc 0.6071
+Epoch 8: train_loss 10.7166, train_text_loss 9.8183, val_loss 10.4240, val_text_loss 9.7554, train_acc 0.5556, val_acc 0.6071
+Epoch 9: train_loss 10.4597, train_text_loss 9.7484, val_loss 10.4250, val_text_loss 9.6855, train_acc 0.5802, val_acc 0.4643
+Epoch 10: train_loss 10.3989, train_text_loss 9.6753, val_loss 10.4122, val_text_loss 9.6067, train_acc 0.5062, val_acc 0.4643
+Epoch 11: train_loss 10.3353, train_text_loss 9.5943, val_loss 10.2191, val_text_loss 9.5301, train_acc 0.5679, val_acc 0.4643
+Epoch 12: train_loss 10.2116, train_text_loss 9.5243, val_loss 10.1312, val_text_loss 9.4533, train_acc 0.6543, val_acc 0.6071
+Epoch 13: train_loss 10.1182, train_text_loss 9.4459, val_loss 10.0279, val_text_loss 9.3733, train_acc 0.5926, val_acc 0.6071
+Epoch 14: train_loss 9.9892, train_text_loss 9.3625, val_loss 9.9625, val_text_loss 9.2895, train_acc 0.6296, val_acc 0.5714
+Epoch 15: train_loss 9.9621, train_text_loss 9.2807, val_loss 9.8847, val_text_loss 9.2035, train_acc 0.5679, val_acc 0.5357
+Epoch 16: train_loss 9.8649, train_text_loss 9.1991, val_loss 9.8091, val_text_loss 9.1213, train_acc 0.5679, val_acc 0.5357
+Epoch 17: train_loss 9.8192, train_text_loss 9.1173, val_loss 9.6817, val_text_loss 9.0364, train_acc 0.5679, val_acc 0.6071
+Epoch 18: train_loss 9.7664, train_text_loss 9.0340, val_loss 9.5982, val_text_loss 8.9504, train_acc 0.5432, val_acc 0.6071
+Epoch 19: train_loss 9.6058, train_text_loss 8.9498, val_loss 9.5452, val_text_loss 8.8678, train_acc 0.5556, val_acc 0.5357
+Epoch 20: train_loss 9.5339, train_text_loss 8.8629, val_loss 9.4442, val_text_loss 8.7871, train_acc 0.5556, val_acc 0.5714
+Epoch 21: train_loss 9.4944, train_text_loss 8.7838, val_loss 9.3981, val_text_loss 8.7068, train_acc 0.5556, val_acc 0.6071
+Epoch 22: train_loss 9.4815, train_text_loss 8.7040, val_loss 9.3929, val_text_loss 8.6267, train_acc 0.5679, val_acc 0.6071
+Epoch 23: train_loss 9.2666, train_text_loss 8.6246, val_loss 9.2351, val_text_loss 8.5539, train_acc 0.6420, val_acc 0.5357
+Epoch 24: train_loss 9.2045, train_text_loss 8.5483, val_loss 9.1176, val_text_loss 8.4748, train_acc 0.6296, val_acc 0.5357
+Epoch 25: train_loss 9.0936, train_text_loss 8.4762, val_loss 9.0420, val_text_loss 8.3989, train_acc 0.7160, val_acc 0.5000
+Epoch 26: train_loss 9.0673, train_text_loss 8.3978, val_loss 8.9895, val_text_loss 8.3249, train_acc 0.6173, val_acc 0.5357
+Epoch 27: train_loss 9.0112, train_text_loss 8.3252, val_loss 8.9298, val_text_loss 8.2500, train_acc 0.5802, val_acc 0.5357
+Epoch 28: train_loss 8.9447, train_text_loss 8.2476, val_loss 8.8600, val_text_loss 8.1692, train_acc 0.6049, val_acc 0.5714
+Epoch 29: train_loss 8.7993, train_text_loss 8.1649, val_loss 8.7414, val_text_loss 8.0854, train_acc 0.6296, val_acc 0.5357
+Epoch 30: train_loss 8.8152, train_text_loss 8.0856, val_loss 8.6900, val_text_loss 8.0077, train_acc 0.5926, val_acc 0.6429
+Epoch 31: train_loss 8.6672, train_text_loss 8.0030, val_loss 8.5809, val_text_loss 7.9323, train_acc 0.5926, val_acc 0.6429
+Epoch 32: train_loss 8.6928, train_text_loss 7.9290, val_loss 8.5650, val_text_loss 7.8653, train_acc 0.6049, val_acc 0.6786
+Epoch 33: train_loss 8.4996, train_text_loss 7.8667, val_loss 8.5171, val_text_loss 7.8021, train_acc 0.6173, val_acc 0.6071
+Epoch 34: train_loss 8.4806, train_text_loss 7.8012, val_loss 8.3827, val_text_loss 7.7245, train_acc 0.4938, val_acc 0.5000
+Epoch 35: train_loss 8.3442, train_text_loss 7.7267, val_loss 8.3134, val_text_loss 7.6534, train_acc 0.6543, val_acc 0.5714
+Epoch 36: train_loss 8.2947, train_text_loss 7.6492, val_loss 8.2124, val_text_loss 7.5773, train_acc 0.6049, val_acc 0.6071
+Epoch 37: train_loss 8.2920, train_text_loss 7.5776, val_loss 8.1829, val_text_loss 7.5072, train_acc 0.6049, val_acc 0.5714
+Epoch 38: train_loss 8.1175, train_text_loss 7.4975, val_loss 8.1450, val_text_loss 7.4297, train_acc 0.6543, val_acc 0.5000
+Epoch 39: train_loss 8.0197, train_text_loss 7.4237, val_loss 7.9943, val_text_loss 7.3565, train_acc 0.7284, val_acc 0.6071
+Epoch 40: train_loss 7.9756, train_text_loss 7.3530, val_loss 7.9909, val_text_loss 7.2925, train_acc 0.6173, val_acc 0.6786
+Epoch 41: train_loss 7.9485, train_text_loss 7.2836, val_loss 7.8777, val_text_loss 7.2234, train_acc 0.5679, val_acc 0.5357
+Epoch 42: train_loss 7.8127, train_text_loss 7.2191, val_loss 7.9208, val_text_loss 7.1639, train_acc 0.6914, val_acc 0.5000
+Epoch 43: train_loss 7.8102, train_text_loss 7.1528, val_loss 7.9147, val_text_loss 7.1062, train_acc 0.5556, val_acc 0.4643
+Epoch 44: train_loss 7.7130, train_text_loss 7.1046, val_loss 7.6975, val_text_loss 7.0528, train_acc 0.6914, val_acc 0.5714
+Epoch 45: train_loss 7.6324, train_text_loss 7.0385, val_loss 7.6585, val_text_loss 6.9944, train_acc 0.6914, val_acc 0.5357
+Epoch 46: train_loss 7.7022, train_text_loss 6.9854, val_loss 7.6342, val_text_loss 6.9575, train_acc 0.6173, val_acc 0.5357
+Epoch 47: train_loss 7.5205, train_text_loss 6.9216, val_loss 7.5760, val_text_loss 6.8873, train_acc 0.5802, val_acc 0.4286
+Epoch 48: train_loss 7.4676, train_text_loss 6.8696, val_loss 7.5581, val_text_loss 6.8254, train_acc 0.7160, val_acc 0.5357
+Epoch 49: train_loss 7.5006, train_text_loss 6.8112, val_loss 7.5067, val_text_loss 6.7781, train_acc 0.6296, val_acc 0.5714
+Epoch 50: train_loss 7.3361, train_text_loss 6.7566, val_loss 7.4390, val_text_loss 6.7160, train_acc 0.6667, val_acc 0.5714
+Epoch 51: train_loss 7.3087, train_text_loss 6.7090, val_loss 7.3162, val_text_loss 6.6613, train_acc 0.7160, val_acc 0.6071
+Epoch 52: train_loss 7.2571, train_text_loss 6.6523, val_loss 7.2815, val_text_loss 6.6067, train_acc 0.6543, val_acc 0.4643
+Epoch 53: train_loss 7.2142, train_text_loss 6.5927, val_loss 7.2387, val_text_loss 6.5545, train_acc 0.6173, val_acc 0.5357
+Epoch 54: train_loss 7.3494, train_text_loss 6.5555, val_loss 7.1725, val_text_loss 6.5002, train_acc 0.5556, val_acc 0.6071
+Epoch 55: train_loss 7.1276, train_text_loss 6.4959, val_loss 7.1044, val_text_loss 6.4527, train_acc 0.6667, val_acc 0.5357
+Epoch 56: train_loss 7.0562, train_text_loss 6.4470, val_loss 7.0765, val_text_loss 6.4041, train_acc 0.6173, val_acc 0.4643
+Epoch 57: train_loss 7.0414, train_text_loss 6.3932, val_loss 7.0293, val_text_loss 6.3608, train_acc 0.6914, val_acc 0.5714
+Epoch 58: train_loss 6.9744, train_text_loss 6.3501, val_loss 6.9976, val_text_loss 6.3129, train_acc 0.6667, val_acc 0.6429
+Epoch 59: train_loss 6.9273, train_text_loss 6.2956, val_loss 6.9300, val_text_loss 6.2616, train_acc 0.6790, val_acc 0.5000
+Epoch 60: train_loss 6.8526, train_text_loss 6.2526, val_loss 7.0633, val_text_loss 6.2184, train_acc 0.6667, val_acc 0.4643
+Epoch 61: train_loss 6.8910, train_text_loss 6.2001, val_loss 6.8988, val_text_loss 6.1663, train_acc 0.5802, val_acc 0.4643
+Epoch 62: train_loss 6.7879, train_text_loss 6.1616, val_loss 6.7906, val_text_loss 6.1364, train_acc 0.5802, val_acc 0.6786
+Epoch 63: train_loss 6.7758, train_text_loss 6.1225, val_loss 6.8127, val_text_loss 6.0902, train_acc 0.6914, val_acc 0.6786
+Epoch 64: train_loss 6.8620, train_text_loss 6.0957, val_loss 6.7204, val_text_loss 6.0685, train_acc 0.6420, val_acc 0.5714
+Epoch 65: train_loss 6.6983, train_text_loss 6.0522, val_loss 6.7678, val_text_loss 6.0121, train_acc 0.6296, val_acc 0.5357
+Epoch 66: train_loss 6.6455, train_text_loss 6.0094, val_loss 6.7133, val_text_loss 5.9841, train_acc 0.6049, val_acc 0.5000
+Epoch 67: train_loss 6.6021, train_text_loss 5.9819, val_loss 6.6301, val_text_loss 5.9470, train_acc 0.6667, val_acc 0.4643
+Epoch 68: train_loss 6.5834, train_text_loss 5.9315, val_loss 6.5815, val_text_loss 5.9065, train_acc 0.6173, val_acc 0.5357
+Epoch 69: train_loss 6.4498, train_text_loss 5.8920, val_loss 6.5386, val_text_loss 5.8668, train_acc 0.7037, val_acc 0.6071
+Epoch 70: train_loss 6.4501, train_text_loss 5.8537, val_loss 6.5375, val_text_loss 5.8391, train_acc 0.6420, val_acc 0.5357
+Epoch 71: train_loss 6.4517, train_text_loss 5.8136, val_loss 6.4845, val_text_loss 5.8001, train_acc 0.6420, val_acc 0.5357
+Epoch 72: train_loss 6.3614, train_text_loss 5.7762, val_loss 6.4699, val_text_loss 5.7707, train_acc 0.6420, val_acc 0.5714
+Epoch 73: train_loss 6.3193, train_text_loss 5.7386, val_loss 6.4033, val_text_loss 5.7266, train_acc 0.7037, val_acc 0.5714
+Epoch 74: train_loss 6.2433, train_text_loss 5.7147, val_loss 6.3670, val_text_loss 5.6976, train_acc 0.7160, val_acc 0.5714
+Epoch 75: train_loss 6.2567, train_text_loss 5.6701, val_loss 6.3909, val_text_loss 5.6590, train_acc 0.7037, val_acc 0.5357
+Epoch 76: train_loss 6.3267, train_text_loss 5.6406, val_loss 6.3300, val_text_loss 5.6318, train_acc 0.6543, val_acc 0.6071
+Epoch 77: train_loss 6.1830, train_text_loss 5.6150, val_loss 6.3095, val_text_loss 5.5972, train_acc 0.7284, val_acc 0.6071
+Epoch 78: train_loss 6.1595, train_text_loss 5.5643, val_loss 6.2742, val_text_loss 5.5650, train_acc 0.7037, val_acc 0.5714
+Epoch 79: train_loss 6.2393, train_text_loss 5.5574, val_loss 6.3023, val_text_loss 5.5408, train_acc 0.6543, val_acc 0.4643
+Epoch 80: train_loss 6.1085, train_text_loss 5.5163, val_loss 6.2510, val_text_loss 5.5274, train_acc 0.6173, val_acc 0.5357
+Epoch 81: train_loss 6.1054, train_text_loss 5.4828, val_loss 6.1322, val_text_loss 5.4765, train_acc 0.6543, val_acc 0.5714
+Epoch 82: train_loss 6.0975, train_text_loss 5.4579, val_loss 6.1330, val_text_loss 5.4569, train_acc 0.6049, val_acc 0.6071
+Epoch 83: train_loss 6.1007, train_text_loss 5.4454, val_loss 6.1565, val_text_loss 5.4480, train_acc 0.6049, val_acc 0.6071
+Epoch 84: train_loss 6.0719, train_text_loss 5.4379, val_loss 6.1331, val_text_loss 5.4137, train_acc 0.7160, val_acc 0.5714
+Epoch 85: train_loss 6.0567, train_text_loss 5.4049, val_loss 6.2557, val_text_loss 5.3857, train_acc 0.5556, val_acc 0.5000
+Epoch 86: train_loss 6.0130, train_text_loss 5.3660, val_loss 6.1755, val_text_loss 5.3732, train_acc 0.6173, val_acc 0.5000
+Epoch 87: train_loss 5.9246, train_text_loss 5.3434, val_loss 6.0493, val_text_loss 5.3548, train_acc 0.7407, val_acc 0.6071
+Epoch 88: train_loss 5.9555, train_text_loss 5.3308, val_loss 6.0200, val_text_loss 5.3195, train_acc 0.6667, val_acc 0.6071
+Epoch 89: train_loss 5.8648, train_text_loss 5.3015, val_loss 6.0530, val_text_loss 5.2997, train_acc 0.7160, val_acc 0.5357
+Epoch 90: train_loss 5.8565, train_text_loss 5.2757, val_loss 6.1364, val_text_loss 5.2867, train_acc 0.7531, val_acc 0.5000
+Epoch 91: train_loss 5.8753, train_text_loss 5.2709, val_loss 6.0636, val_text_loss 5.2647, train_acc 0.7037, val_acc 0.5000
+Epoch 92: train_loss 5.8705, train_text_loss 5.2612, val_loss 5.9598, val_text_loss 5.2525, train_acc 0.6667, val_acc 0.5714
+Epoch 93: train_loss 5.8353, train_text_loss 5.2292, val_loss 6.0125, val_text_loss 5.2468, train_acc 0.6543, val_acc 0.5714
+Epoch 94: train_loss 5.7417, train_text_loss 5.1987, val_loss 5.8844, val_text_loss 5.2098, train_acc 0.7160, val_acc 0.5357
+Epoch 95: train_loss 5.8362, train_text_loss 5.1856, val_loss 5.9956, val_text_loss 5.2024, train_acc 0.5926, val_acc 0.5714
+Epoch 96: train_loss 5.7526, train_text_loss 5.1630, val_loss 5.8562, val_text_loss 5.1688, train_acc 0.6296, val_acc 0.5714
+Epoch 97: train_loss 5.7133, train_text_loss 5.1472, val_loss 5.9388, val_text_loss 5.1813, train_acc 0.6667, val_acc 0.4643
+Epoch 98: train_loss 5.7598, train_text_loss 5.1312, val_loss 5.8616, val_text_loss 5.1446, train_acc 0.6420, val_acc 0.5357
+Epoch 99: train_loss 5.7865, train_text_loss 5.1301, val_loss 5.9188, val_text_loss 5.1370, train_acc 0.7160, val_acc 0.5714
+Epoch 100: train_loss 5.7473, train_text_loss 5.1202, val_loss 5.8196, val_text_loss 5.1016, train_acc 0.6790, val_acc 0.5000
+Epoch 101: train_loss 5.7992, train_text_loss 5.0944, val_loss 5.8154, val_text_loss 5.0919, train_acc 0.6790, val_acc 0.5000
+Epoch 102: train_loss 5.6833, train_text_loss 5.0594, val_loss 5.7946, val_text_loss 5.0638, train_acc 0.6790, val_acc 0.5000
+Epoch 103: train_loss 5.6150, train_text_loss 5.0384, val_loss 5.7388, val_text_loss 5.0597, train_acc 0.6420, val_acc 0.5714
+Epoch 104: train_loss 5.6743, train_text_loss 5.0167, val_loss 5.7672, val_text_loss 5.0555, train_acc 0.6543, val_acc 0.6071
+Epoch 105: train_loss 5.7183, train_text_loss 4.9933, val_loss 5.6641, val_text_loss 5.0252, train_acc 0.5926, val_acc 0.6071
+Epoch 106: train_loss 5.5863, train_text_loss 4.9827, val_loss 5.8239, val_text_loss 5.0124, train_acc 0.6790, val_acc 0.5714
+Epoch 107: train_loss 5.5984, train_text_loss 4.9749, val_loss 5.6278, val_text_loss 4.9857, train_acc 0.6296, val_acc 0.5357
+Epoch 108: train_loss 5.5322, train_text_loss 4.9639, val_loss 5.5706, val_text_loss 4.9624, train_acc 0.7284, val_acc 0.6071
+Epoch 109: train_loss 5.5843, train_text_loss 4.9493, val_loss 5.5976, val_text_loss 4.9467, train_acc 0.6420, val_acc 0.6429
+Epoch 110: train_loss 5.5745, train_text_loss 4.9398, val_loss 5.6463, val_text_loss 4.9317, train_acc 0.6667, val_acc 0.5714
+Epoch 111: train_loss 5.4665, train_text_loss 4.8987, val_loss 5.5489, val_text_loss 4.9084, train_acc 0.7037, val_acc 0.5714
+Epoch 112: train_loss 5.4737, train_text_loss 4.8761, val_loss 5.5009, val_text_loss 4.8904, train_acc 0.7407, val_acc 0.6429
+Epoch 113: train_loss 5.4774, train_text_loss 4.8805, val_loss 5.5155, val_text_loss 4.8754, train_acc 0.6543, val_acc 0.6071
+Epoch 114: train_loss 5.5119, train_text_loss 4.8803, val_loss 5.5090, val_text_loss 4.8671, train_acc 0.6296, val_acc 0.5357
+Epoch 115: train_loss 5.4429, train_text_loss 4.8464, val_loss 5.5761, val_text_loss 4.8538, train_acc 0.7160, val_acc 0.5714
+Epoch 116: train_loss 5.4796, train_text_loss 4.8432, val_loss 5.4551, val_text_loss 4.8228, train_acc 0.6420, val_acc 0.5714
+Epoch 117: train_loss 5.4102, train_text_loss 4.8121, val_loss 5.4535, val_text_loss 4.8055, train_acc 0.7160, val_acc 0.5714
+Epoch 118: train_loss 5.4533, train_text_loss 4.8196, val_loss 5.4295, val_text_loss 4.7938, train_acc 0.6420, val_acc 0.5714
+Epoch 119: train_loss 5.3564, train_text_loss 4.7902, val_loss 5.4903, val_text_loss 4.7655, train_acc 0.7160, val_acc 0.6071
+Epoch 120: train_loss 5.3236, train_text_loss 4.7417, val_loss 5.4360, val_text_loss 4.7583, train_acc 0.7037, val_acc 0.5714
+Epoch 121: train_loss 5.3671, train_text_loss 4.7229, val_loss 5.3757, val_text_loss 4.7422, train_acc 0.7037, val_acc 0.5357
+Epoch 122: train_loss 5.3164, train_text_loss 4.7120, val_loss 5.4271, val_text_loss 4.7352, train_acc 0.7654, val_acc 0.5714
+Epoch 123: train_loss 5.2629, train_text_loss 4.6880, val_loss 5.3398, val_text_loss 4.7057, train_acc 0.6790, val_acc 0.6429
+Epoch 124: train_loss 5.2747, train_text_loss 4.6698, val_loss 5.3524, val_text_loss 4.6844, train_acc 0.6790, val_acc 0.6071
+Epoch 125: train_loss 5.1884, train_text_loss 4.6478, val_loss 5.3975, val_text_loss 4.6793, train_acc 0.6790, val_acc 0.5357
+Epoch 126: train_loss 5.1890, train_text_loss 4.6383, val_loss 5.3753, val_text_loss 4.6600, train_acc 0.7284, val_acc 0.5357
+Epoch 127: train_loss 5.1635, train_text_loss 4.6460, val_loss 5.3051, val_text_loss 4.6434, train_acc 0.7407, val_acc 0.6071
+Epoch 128: train_loss 5.2507, train_text_loss 4.6213, val_loss 5.2755, val_text_loss 4.6227, train_acc 0.7284, val_acc 0.5357
+Epoch 129: train_loss 5.2345, train_text_loss 4.6044, val_loss 5.2722, val_text_loss 4.5968, train_acc 0.6667, val_acc 0.5357
+Epoch 130: train_loss 5.1919, train_text_loss 4.5743, val_loss 5.2517, val_text_loss 4.5597, train_acc 0.6296, val_acc 0.6071
+Epoch 131: train_loss 5.1393, train_text_loss 4.5654, val_loss 5.1900, val_text_loss 4.5574, train_acc 0.7284, val_acc 0.5714
+Epoch 132: train_loss 5.0895, train_text_loss 4.5225, val_loss 5.1721, val_text_loss 4.5303, train_acc 0.6790, val_acc 0.6071
+Epoch 133: train_loss 5.2123, train_text_loss 4.5396, val_loss 5.1870, val_text_loss 4.5309, train_acc 0.6420, val_acc 0.6071
+Epoch 134: train_loss 5.1554, train_text_loss 4.5271, val_loss 5.2354, val_text_loss 4.5029, train_acc 0.6296, val_acc 0.6071
+Epoch 135: train_loss 5.1285, train_text_loss 4.5132, val_loss 5.1747, val_text_loss 4.4912, train_acc 0.6914, val_acc 0.5357
+Epoch 136: train_loss 5.0089, train_text_loss 4.4851, val_loss 5.1243, val_text_loss 4.4690, train_acc 0.7284, val_acc 0.4643
+Epoch 137: train_loss 4.9701, train_text_loss 4.4468, val_loss 5.1387, val_text_loss 4.4551, train_acc 0.7284, val_acc 0.5357
+Epoch 138: train_loss 5.0384, train_text_loss 4.4550, val_loss 5.1110, val_text_loss 4.4291, train_acc 0.7284, val_acc 0.5000
+Epoch 139: train_loss 4.9726, train_text_loss 4.4116, val_loss 5.1351, val_text_loss 4.4189, train_acc 0.7037, val_acc 0.5714
+Epoch 140: train_loss 5.0639, train_text_loss 4.3812, val_loss 5.0656, val_text_loss 4.3851, train_acc 0.6420, val_acc 0.5714
+Epoch 141: train_loss 4.8911, train_text_loss 4.3727, val_loss 4.9948, val_text_loss 4.3478, train_acc 0.7407, val_acc 0.5714
+Epoch 142: train_loss 4.9716, train_text_loss 4.3783, val_loss 5.0202, val_text_loss 4.3358, train_acc 0.6790, val_acc 0.6071
+Epoch 143: train_loss 4.8616, train_text_loss 4.3521, val_loss 5.0562, val_text_loss 4.3174, train_acc 0.7037, val_acc 0.5714
+Epoch 144: train_loss 4.9510, train_text_loss 4.3198, val_loss 4.9979, val_text_loss 4.2807, train_acc 0.6049, val_acc 0.6071
+Epoch 145: train_loss 4.8647, train_text_loss 4.3095, val_loss 4.9570, val_text_loss 4.2730, train_acc 0.6914, val_acc 0.6071
+Epoch 146: train_loss 4.8565, train_text_loss 4.2824, val_loss 4.8666, val_text_loss 4.2483, train_acc 0.6790, val_acc 0.6071
+Epoch 147: train_loss 4.8515, train_text_loss 4.2201, val_loss 4.9804, val_text_loss 4.2254, train_acc 0.6420, val_acc 0.5000
+Epoch 148: train_loss 4.8416, train_text_loss 4.2301, val_loss 4.9407, val_text_loss 4.1848, train_acc 0.6420, val_acc 0.5714
+Epoch 149: train_loss 4.7609, train_text_loss 4.2086, val_loss 4.9002, val_text_loss 4.1870, train_acc 0.7037, val_acc 0.5357
+Epoch 150: train_loss 4.6904, train_text_loss 4.1578, val_loss 4.8613, val_text_loss 4.1476, train_acc 0.7654, val_acc 0.5357
+Epoch 151: train_loss 4.6744, train_text_loss 4.1511, val_loss 4.7984, val_text_loss 4.1208, train_acc 0.7160, val_acc 0.5714
+Epoch 152: train_loss 4.7441, train_text_loss 4.1468, val_loss 4.7656, val_text_loss 4.1025, train_acc 0.7284, val_acc 0.5357
+Epoch 153: train_loss 4.6741, train_text_loss 4.1212, val_loss 4.8506, val_text_loss 4.0778, train_acc 0.6914, val_acc 0.4643
+Epoch 154: train_loss 4.5689, train_text_loss 4.0649, val_loss 4.8034, val_text_loss 4.0689, train_acc 0.7037, val_acc 0.5000
+Epoch 155: train_loss 4.7345, train_text_loss 4.0693, val_loss 4.7422, val_text_loss 4.0459, train_acc 0.7160, val_acc 0.5000
+Epoch 156: train_loss 4.6417, train_text_loss 4.0486, val_loss 4.7617, val_text_loss 4.0137, train_acc 0.7160, val_acc 0.4643
+Epoch 157: train_loss 4.5217, train_text_loss 4.0453, val_loss 4.6726, val_text_loss 3.9793, train_acc 0.7654, val_acc 0.5000
+Epoch 158: train_loss 4.6531, train_text_loss 4.0088, val_loss 4.6877, val_text_loss 3.9614, train_acc 0.6543, val_acc 0.5357
+Epoch 159: train_loss 4.5896, train_text_loss 3.9641, val_loss 4.6383, val_text_loss 3.9324, train_acc 0.6296, val_acc 0.5357
+Epoch 160: train_loss 4.5672, train_text_loss 3.9151, val_loss 4.5949, val_text_loss 3.9128, train_acc 0.7037, val_acc 0.5357
+Epoch 161: train_loss 4.5140, train_text_loss 3.8980, val_loss 4.5594, val_text_loss 3.9039, train_acc 0.6914, val_acc 0.5357
+Epoch 162: train_loss 4.4828, train_text_loss 3.9068, val_loss 4.5910, val_text_loss 3.8680, train_acc 0.6914, val_acc 0.5000
+Epoch 163: train_loss 4.6229, train_text_loss 3.8950, val_loss 4.5734, val_text_loss 3.8529, train_acc 0.6543, val_acc 0.5357
+Epoch 164: train_loss 4.4644, train_text_loss 3.8488, val_loss 4.6980, val_text_loss 3.8474, train_acc 0.7160, val_acc 0.5714
+Epoch 165: train_loss 4.4690, train_text_loss 3.8541, val_loss 4.5884, val_text_loss 3.8220, train_acc 0.6790, val_acc 0.4286
+Epoch 166: train_loss 4.4725, train_text_loss 3.8326, val_loss 4.5411, val_text_loss 3.8047, train_acc 0.6667, val_acc 0.5357
+Epoch 167: train_loss 4.5283, train_text_loss 3.7977, val_loss 4.4877, val_text_loss 3.7736, train_acc 0.6790, val_acc 0.5000
+Epoch 168: train_loss 4.3292, train_text_loss 3.7955, val_loss 4.5392, val_text_loss 3.7714, train_acc 0.7160, val_acc 0.4286
+Epoch 169: train_loss 4.2977, train_text_loss 3.7499, val_loss 4.5033, val_text_loss 3.7577, train_acc 0.6790, val_acc 0.4286
+Epoch 170: train_loss 4.2601, train_text_loss 3.7384, val_loss 4.3856, val_text_loss 3.6968, train_acc 0.7407, val_acc 0.6071
+Epoch 171: train_loss 4.2917, train_text_loss 3.6897, val_loss 4.3870, val_text_loss 3.6802, train_acc 0.6914, val_acc 0.5000
+Epoch 172: train_loss 4.1465, train_text_loss 3.6584, val_loss 4.3427, val_text_loss 3.6281, train_acc 0.7778, val_acc 0.5000
+Epoch 173: train_loss 4.1668, train_text_loss 3.6415, val_loss 4.3684, val_text_loss 3.6200, train_acc 0.7037, val_acc 0.4643
+Epoch 174: train_loss 4.1688, train_text_loss 3.6456, val_loss 4.2905, val_text_loss 3.5724, train_acc 0.7654, val_acc 0.5357
+Epoch 175: train_loss 4.1156, train_text_loss 3.5722, val_loss 4.3144, val_text_loss 3.5509, train_acc 0.7407, val_acc 0.5000
+Epoch 176: train_loss 4.2279, train_text_loss 3.5414, val_loss 4.2049, val_text_loss 3.5203, train_acc 0.7160, val_acc 0.4643
+Epoch 177: train_loss 4.2076, train_text_loss 3.5743, val_loss 4.1854, val_text_loss 3.4867, train_acc 0.6543, val_acc 0.6071
+Epoch 178: train_loss 4.1468, train_text_loss 3.5312, val_loss 4.3161, val_text_loss 3.4876, train_acc 0.7407, val_acc 0.5000
+Epoch 179: train_loss 3.9851, train_text_loss 3.4668, val_loss 4.3530, val_text_loss 3.4394, train_acc 0.7407, val_acc 0.5000
+Epoch 180: train_loss 4.0142, train_text_loss 3.4735, val_loss 4.0843, val_text_loss 3.4251, train_acc 0.6667, val_acc 0.5000
+Epoch 181: train_loss 3.9598, train_text_loss 3.4159, val_loss 4.0856, val_text_loss 3.3924, train_acc 0.7160, val_acc 0.6429
+Epoch 182: train_loss 3.9735, train_text_loss 3.4024, val_loss 4.0409, val_text_loss 3.3888, train_acc 0.6667, val_acc 0.5000
+Epoch 183: train_loss 3.9115, train_text_loss 3.3654, val_loss 4.1852, val_text_loss 3.3714, train_acc 0.7037, val_acc 0.5357
+Epoch 184: train_loss 3.9370, train_text_loss 3.3404, val_loss 4.1070, val_text_loss 3.3236, train_acc 0.6914, val_acc 0.5357
+Epoch 185: train_loss 3.8756, train_text_loss 3.3513, val_loss 3.9560, val_text_loss 3.2643, train_acc 0.7037, val_acc 0.5000
+Epoch 186: train_loss 3.9395, train_text_loss 3.3213, val_loss 3.9927, val_text_loss 3.2712, train_acc 0.7037, val_acc 0.5000
+Epoch 187: train_loss 3.8366, train_text_loss 3.2799, val_loss 4.0445, val_text_loss 3.2559, train_acc 0.7037, val_acc 0.5000
+Epoch 188: train_loss 3.8229, train_text_loss 3.2387, val_loss 4.0363, val_text_loss 3.2172, train_acc 0.7531, val_acc 0.5000
+Epoch 189: train_loss 3.8187, train_text_loss 3.2318, val_loss 4.0175, val_text_loss 3.1898, train_acc 0.7531, val_acc 0.4643
+Epoch 190: train_loss 3.7371, train_text_loss 3.2059, val_loss 3.9306, val_text_loss 3.1664, train_acc 0.6914, val_acc 0.5357
+Epoch 191: train_loss 3.7419, train_text_loss 3.1912, val_loss 3.8614, val_text_loss 3.1559, train_acc 0.6914, val_acc 0.6071
+Epoch 192: train_loss 3.7026, train_text_loss 3.1347, val_loss 3.9109, val_text_loss 3.1142, train_acc 0.6790, val_acc 0.4643
+Epoch 193: train_loss 3.6541, train_text_loss 3.1088, val_loss 3.9623, val_text_loss 3.0719, train_acc 0.7407, val_acc 0.4643
+Epoch 194: train_loss 3.6525, train_text_loss 3.1068, val_loss 3.8355, val_text_loss 3.0597, train_acc 0.7284, val_acc 0.4286
+Epoch 195: train_loss 3.6838, train_text_loss 3.0667, val_loss 3.9206, val_text_loss 3.0517, train_acc 0.6914, val_acc 0.4643
+Epoch 196: train_loss 3.5297, train_text_loss 3.0514, val_loss 3.7794, val_text_loss 2.9928, train_acc 0.7654, val_acc 0.4643
+Epoch 197: train_loss 3.5441, train_text_loss 3.0120, val_loss 3.7078, val_text_loss 2.9772, train_acc 0.7160, val_acc 0.5000
+Epoch 198: train_loss 3.5394, train_text_loss 3.0139, val_loss 3.8547, val_text_loss 2.9986, train_acc 0.7284, val_acc 0.4643
+Epoch 199: train_loss 3.5380, train_text_loss 2.9750, val_loss 3.9976, val_text_loss 2.9416, train_acc 0.7037, val_acc 0.4643
+Epoch 200: train_loss 3.4874, train_text_loss 2.9587, val_loss 3.8085, val_text_loss 2.9233, train_acc 0.7037, val_acc 0.4643
+Epoch 201: train_loss 3.4474, train_text_loss 2.9418, val_loss 3.6877, val_text_loss 2.8955, train_acc 0.7654, val_acc 0.5000
+Epoch 202: train_loss 3.4951, train_text_loss 2.9158, val_loss 3.8060, val_text_loss 2.8910, train_acc 0.7160, val_acc 0.5357
+Epoch 203: train_loss 3.4379, train_text_loss 2.8801, val_loss 3.7388, val_text_loss 2.8333, train_acc 0.6667, val_acc 0.4643
+Epoch 204: train_loss 3.4177, train_text_loss 2.8823, val_loss 3.8788, val_text_loss 2.8272, train_acc 0.7284, val_acc 0.5000
+Epoch 205: train_loss 3.5240, train_text_loss 2.8475, val_loss 3.6645, val_text_loss 2.7880, train_acc 0.7284, val_acc 0.3929
+Epoch 206: train_loss 3.3599, train_text_loss 2.8361, val_loss 3.6631, val_text_loss 2.7922, train_acc 0.7407, val_acc 0.5357
+Epoch 207: train_loss 3.4137, train_text_loss 2.8152, val_loss 3.6221, val_text_loss 2.7604, train_acc 0.6667, val_acc 0.5357
+Epoch 208: train_loss 3.2971, train_text_loss 2.7629, val_loss 3.5712, val_text_loss 2.7272, train_acc 0.7160, val_acc 0.5357
+Epoch 209: train_loss 3.4250, train_text_loss 2.7886, val_loss 3.6329, val_text_loss 2.7113, train_acc 0.6790, val_acc 0.5357
+Epoch 210: train_loss 3.3141, train_text_loss 2.7567, val_loss 3.7511, val_text_loss 2.6768, train_acc 0.7160, val_acc 0.4286
+Epoch 211: train_loss 3.2029, train_text_loss 2.7180, val_loss 3.5179, val_text_loss 2.6754, train_acc 0.8025, val_acc 0.5357
+Epoch 212: train_loss 3.3290, train_text_loss 2.7296, val_loss 3.4951, val_text_loss 2.6350, train_acc 0.6790, val_acc 0.5357
+Epoch 213: train_loss 3.1860, train_text_loss 2.7048, val_loss 3.5867, val_text_loss 2.6380, train_acc 0.7037, val_acc 0.4643
+Epoch 214: train_loss 3.2000, train_text_loss 2.6592, val_loss 3.5627, val_text_loss 2.6087, train_acc 0.6790, val_acc 0.3571
+Epoch 215: train_loss 3.2842, train_text_loss 2.6432, val_loss 3.4365, val_text_loss 2.5687, train_acc 0.7284, val_acc 0.4643
+Epoch 216: train_loss 3.2033, train_text_loss 2.6187, val_loss 3.3953, val_text_loss 2.5563, train_acc 0.7407, val_acc 0.5357
+Epoch 217: train_loss 3.1500, train_text_loss 2.5914, val_loss 3.2904, val_text_loss 2.5359, train_acc 0.7407, val_acc 0.5000
+Epoch 218: train_loss 3.0273, train_text_loss 2.5421, val_loss 3.2692, val_text_loss 2.5136, train_acc 0.7531, val_acc 0.6071
+Epoch 219: train_loss 3.0396, train_text_loss 2.5509, val_loss 3.1933, val_text_loss 2.4814, train_acc 0.7654, val_acc 0.4643
+Epoch 220: train_loss 3.0600, train_text_loss 2.4922, val_loss 3.2555, val_text_loss 2.4762, train_acc 0.6790, val_acc 0.5000
+Epoch 221: train_loss 3.2415, train_text_loss 2.5039, val_loss 3.3269, val_text_loss 2.4370, train_acc 0.7037, val_acc 0.3929
+Epoch 222: train_loss 2.9385, train_text_loss 2.4498, val_loss 3.1769, val_text_loss 2.4330, train_acc 0.7531, val_acc 0.5357
+Epoch 223: train_loss 2.9011, train_text_loss 2.4260, val_loss 3.0882, val_text_loss 2.3910, train_acc 0.7407, val_acc 0.6071
+Epoch 224: train_loss 2.9297, train_text_loss 2.3946, val_loss 3.0679, val_text_loss 2.3572, train_acc 0.7284, val_acc 0.3929
+Epoch 225: train_loss 2.8535, train_text_loss 2.3716, val_loss 3.1637, val_text_loss 2.3539, train_acc 0.7284, val_acc 0.5000
+Epoch 226: train_loss 2.8702, train_text_loss 2.3524, val_loss 3.0751, val_text_loss 2.3182, train_acc 0.7654, val_acc 0.6071
+Epoch 227: train_loss 2.9103, train_text_loss 2.3385, val_loss 3.0341, val_text_loss 2.2908, train_acc 0.6543, val_acc 0.6429
+Epoch 228: train_loss 2.8862, train_text_loss 2.3290, val_loss 3.1456, val_text_loss 2.2707, train_acc 0.7531, val_acc 0.4286
+Epoch 229: train_loss 2.8503, train_text_loss 2.3323, val_loss 3.1014, val_text_loss 2.2493, train_acc 0.7531, val_acc 0.4286
+Epoch 230: train_loss 2.8233, train_text_loss 2.2878, val_loss 3.1176, val_text_loss 2.2409, train_acc 0.7037, val_acc 0.6071
+Epoch 231: train_loss 2.7801, train_text_loss 2.2424, val_loss 3.0479, val_text_loss 2.1955, train_acc 0.6914, val_acc 0.5000
+Epoch 232: train_loss 2.7445, train_text_loss 2.2454, val_loss 3.1209, val_text_loss 2.1976, train_acc 0.8025, val_acc 0.4286
+Epoch 233: train_loss 3.0307, train_text_loss 2.2053, val_loss 3.0709, val_text_loss 2.1706, train_acc 0.6173, val_acc 0.4643
+Epoch 234: train_loss 2.6342, train_text_loss 2.1878, val_loss 3.0628, val_text_loss 2.1569, train_acc 0.7654, val_acc 0.4643
+Epoch 235: train_loss 2.7125, train_text_loss 2.2020, val_loss 3.0454, val_text_loss 2.1635, train_acc 0.7778, val_acc 0.4643
+Epoch 236: train_loss 2.7636, train_text_loss 2.2193, val_loss 2.9808, val_text_loss 2.1513, train_acc 0.7160, val_acc 0.4643
+Epoch 237: train_loss 2.7404, train_text_loss 2.2060, val_loss 2.9943, val_text_loss 2.1634, train_acc 0.7037, val_acc 0.4643
+Epoch 238: train_loss 2.6702, train_text_loss 2.2152, val_loss 3.0651, val_text_loss 2.1525, train_acc 0.7407, val_acc 0.4286
+Epoch 239: train_loss 2.7979, train_text_loss 2.2331, val_loss 3.0120, val_text_loss 2.1458, train_acc 0.7160, val_acc 0.4643
+Epoch 240: train_loss 2.7382, train_text_loss 2.1884, val_loss 3.0240, val_text_loss 2.1589, train_acc 0.7160, val_acc 0.4643
+Epoch 241: train_loss 2.7585, train_text_loss 2.1895, val_loss 3.0231, val_text_loss 2.1586, train_acc 0.7160, val_acc 0.4643
+Epoch 242: train_loss 2.7470, train_text_loss 2.1955, val_loss 3.0940, val_text_loss 2.1604, train_acc 0.6420, val_acc 0.4643
+Epoch 243: train_loss 2.6621, train_text_loss 2.1825, val_loss 3.0624, val_text_loss 2.1503, train_acc 0.7654, val_acc 0.4643
+Epoch 244: train_loss 2.6827, train_text_loss 2.1959, val_loss 2.9884, val_text_loss 2.1258, train_acc 0.8025, val_acc 0.4643
+Epoch 245: train_loss 2.7911, train_text_loss 2.2089, val_loss 3.0212, val_text_loss 2.1562, train_acc 0.7160, val_acc 0.4643
+Epoch 246: train_loss 2.7459, train_text_loss 2.1835, val_loss 3.0803, val_text_loss 2.1649, train_acc 0.7654, val_acc 0.4643
+Epoch 247: train_loss 2.7363, train_text_loss 2.1615, val_loss 3.0878, val_text_loss 2.1305, train_acc 0.7654, val_acc 0.4643
+Epoch 248: train_loss 2.6822, train_text_loss 2.1669, val_loss 3.0350, val_text_loss 2.1537, train_acc 0.7901, val_acc 0.4643
+Epoch 249: train_loss 2.7367, train_text_loss 2.2146, val_loss 3.0510, val_text_loss 2.1528, train_acc 0.7531, val_acc 0.4643
+Epoch 250: train_loss 2.7136, train_text_loss 2.1914, val_loss 3.0991, val_text_loss 2.1484, train_acc 0.7654, val_acc 0.4643
+Test loss: 3.1602, test_text_loss: 2.1702
+Test accuracy: 0.5556
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 1: is a Female, right-handed individual aged  years with 12 years of education. They have a Rating socioeconomic status, which a access to quality education and healthcare education. This indicates experience in quality, to thement, which in daily, and problem. Clinical, which falls,, a and normal. health... Clinical Dementia Rating (CDR) indicates no and cognitive,, which falls indicate) daily activities, could be an average, of dementia..s,rophy stage may experience occasional memory as, which,fulness, which preservation changes, daily-solving skills, which could maintain independence... estimated total intracranial volume,eTIV) is W,..3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,nWBV) is a.. which corresponds to a moderateized whole brain volume, which is be significant individuals volumerophy..rophy. withina moderatea. doesa whicha preservation..
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 2: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health.ities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate impact daily activities, could be an average, of dementia..s to this stage is experience occasional memory as, which cognitivefulness, which preservation changes in problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is within,.. 3, representing ana moderate small intracranial volume, which correspond, an for adults individuals, does,craa normal brain volume, which with brain volumerophy. preservation,, daily volume..aturenial volume, withina moderate-,, brain volume. va influence, brain function... normalized whole brain volume,eWBV) is a, which iss to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 3: is a Female, right-handed individual aged  years with 12 years of education. They have  expected socioeconomic status, which a significant and stability, which education and, which-solv healthcare,, which a a and in..s to daily Clinical often have  access to brain-solv.ating activities, which falls contribute to  function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, with, which normal-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is withina..,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,eWBV) is -. which corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 4: is a Female, right-handed individual aged  years with 12 years of education. They have a Rating socioeconomic status, which a access to quality education and healthcare education. This indicates experience in quality, to thement, which, daily, and problem. Clinical, which falls,, a and normal. health... Clinical Dementia Rating (CDR) indicates no and cognitive,, which falls indicate) daily activities, could be an average, of dementia..s,rophy stage may experience occasional memory as, which,fulness, which preservation changes, daily-solving skills, which could maintain independence... estimated total intracranial volume,eTIV) is a,..3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,nWBV) is a, which corresponds to a moderate-related-related normalized whole brain volume, which-relateda. brain volume and va.rophy.. and aWBV)  with brain a. va....
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 5: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health.ities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no signs of dementia and normal, function.. indicates no memory, which, which, and problem-solving skills, with no notable impairment in daily activities... estimated total intracranial volume (eTIV) is within,. This,3, representing a moderate small intracranial volume, which correspond be an for adults individuals, could becraa brain brain volume, which with brain volumerophy or preservation, in daily volume..acranial volume  a moderate brain, on brain volume. va influence normal, function... normalized whole brain volume,nWBV) is a,, which corresponds to a moderate-solv-related normalized whole brain volume, which-related to. brain volume and varophy.. high aWBV)  with a. normal, resilience...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 6: is a Female, right-handed individual aged  years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare,, which a a and in..s to daily Clinical often have  access to brain-solv.ating activities, which falls contribute to  function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, with, which normal-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within brain intra.,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,eWBV) is - which corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 7: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, and health.ities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no signs of dementia and normal, function.. indicates no memory, which, which, and problem-solving skills, with no notable impairment in daily activities... estimated total intracranial volume (eTIV) is within,. This,3, representing a moderate small intracranial volume, which correspond be an for adults individuals, could becraa brain brain volume, which with brain volumerophy or preservation, in daily volume..acranial volume  a moderate brain, on brain volume. va influence normal, function... normalized whole brain volume,nWBV) is a which corresponds to a moderate-solv-related normalized whole brain volume, which-related to. brain volume and varophy.. high aWBV)  with a., resilience...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 8: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status, a moderate financial stability with access to education and healthcare, which which with restrictions in quality. preservation..s to this level may experience economic fluctuations that influence life stress and health.... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate) daily activities, could be an average, of dementia..s torophy stage may experience occasional memory as, which cognitivefulness, and preservation changes, daily-solving skills, which could  maintain.... estimated total intracranial volume,eTIV) is withina.,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toa moderate... normalized whole brain volume,eWBV) is withina,,. corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 9: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health disparities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate impact daily activities, could be an average, of dementia..s to this stage is experience occasional memory as, which cognitivefulness, which preservation changes in problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is within,..,3, representing ana moderate small intracranial volume, which correspond, an for adults individuals, does,craa brain volume, which with brain volumerophy. preservation,, daily volume..aturenial volume, a moderate-,nial brain volume. va influence, brain function... normalized whole brain volume,eWBV) is a which iss to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 10: is a Female, right-handed individual aged a years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare access, and a a social environment. Thiss, this category often have  access to brain-solvmulating activities, which can contribute to, function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, which, which problem-solving skills, and no notable impairment, daily activities... estimated total intracranial volume,eTIV) is withina..,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume a the expected intra a by brain volume, whichbros toal fluid, and vas toature... normalized whole brain volume,nWBV) is a which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 11: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health.ities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate impact daily activities, could be an average, of dementia..s to this stage is experience occasional memory as, which cognitivefulness, which preservation changes in problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is withina..3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,nWBV) is a.  which corresponds to a moderate-related-related normalized whole brain volume, which-relateda. brain volume and va.rophy.. and aWBV)  with brain a. normal....
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 12: is a Female, right-handed individual aged a years with 12 years of education. They have  average socioeconomic status, This Clinical Dementia Rating (eDR) indicates no which,,, and correspond,. activities, could be an average, of dementia..s torophy. may experience occasional memory as to which,fulness, which preservation changes, daily-solving skills, which could  maintain.... estimated total intracranial volume,eTIV) is within,...3, representing a Rating and intracranial volume ( which correspond experience an for adults individuals, does becraa brain volume, which with no volumerophy. preservation,, daily volume..a moderatenial volume, withina moderate constrain,, brain volume. va influence brain brain function... normalized whole brain volume,eWBV) is withina. corresponds to a moderate normalized whole brain volume, which correspond within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 13: is a Female, right-handed individual aged a years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare access, and a a social environment. Thiss, this category often have  access to brain-solvmulating activities, which can contribute to, function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, which, which problem-solving skills, and no notable impairment, daily activities... estimated total intracranial volume,eTIV) is withina..,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume a the expected intra a by brain volume, whichbros toal fluid, and vas toature... normalized whole brain volume,nWBV) is a.. which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 14: is a Female, right-handed individual aged  years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare,, which a a social in..s to daily Clinical often have  access to brain-solv.ating activities, which falls contribute to  function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, with, which normal-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within brain...3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,eWBV) is a. which corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 15: is a Female, right-handed individual aged  years with 12 years of education. They have  average socioeconomic status, This Clinical Dementia Rating,eDR) indicates no intra. which a,  which, and normal,, This indicates may withina by brain,, which, daily.solv, which normal limitations. daily,. activities, which.solv is.... estimated total intracranial volume,eTIV) is,, This,3, representing a moderatecra intracranial volume, which correspond experience  for adults individuals, could be,a. brain volume, which with brain volumerophy. preservation falls, daily volume..a moderatenial volume, a moderate brain,nial brain volume. va influence brain brain function... normalized whole brain volume,eWBV) is a. which corresponds to ature normalized whole brain volume, which correspond  the expected range for adults.. volume normalized-solv brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 16: is a Female, right-handed individual aged a years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare access, and a a social environment. Thiss, this category often have  access to brain-solvmulating activities, which can contribute to, function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, which, which problem-solving skills, and no notable impairment, daily activities... estimated total intracranial volume,eTIV) is withinW..,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,eWBV) is aa. which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 17: is a Female, right-handed individual aged a years with 12 years of education. They have  average socioeconomic status, This Clinical Dementia Rating (eDR) indicates no cognitive and which,a,, which, which normal,,. indicates may withina by brain memory, which, daily-solv, which problem limitations, dailyDR  activities, which, normal-solv is within.... estimated total intracranial volume,eTIV) is within,...3, representing a moderate high intracranial volume, which correspond experience an for adults individuals, could be,a,, volume, which with no volumerophy or preservation,, daily volume..aturenial volume, withina moderate brain,, brain volume. va influence, brain function... normalized whole brain volume,eWBV) is a. brain which corresponds to a moderate normalized whole brain volume, which correspond  the expected range for adults.. volume normalized-solv brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 18: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health disparities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate impact daily activities, could be an average, of dementia..s to this stage is experience occasional memory as, which cognitivefulness, which preservation changes in problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is within,. brain3, representing ana moderate small intracranial volume, which correspond experience an for adults individuals, does alsocraa brain volume  which with brain volumerophy or preservation,, daily volume..a moderatenial volume, withina moderate brain,nial brain volume and normal influence., function... normalized whole brain volume,nWBV) is a. representing corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 19: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status, a moderate financial stability with access to education and healthcare, which which with restrictions in quality. preservation..s to this level may experience economic fluctuations that influence life stress and health.... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate) daily activities, could be an average, of dementia..s torophy stage may experience occasional memory as, which cognitivefulness, and preservation changes, daily-solving skills, which could  maintain.... estimated total intracranial volume,eTIV) is withina,..3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toa moderate... normalized whole brain volume,eWBV) is withina.  which corresponds to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 20: is a Female, right-handed individual aged  years with 12 years of education. They have a Rating socioeconomic status, which a access to quality education and healthcare education. This indicates experience in quality, to thement, which in daily, and problem. Clinical, which falls,, a and normal. health... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, and, and problem-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within,..,3, representing a moderate small intracranial volume, which correspond experience an for adults individuals, could becraa. brain volume, which with brain volumerophy or preservation by in daily volume..a moderatenial volume, a moderate brain,nial brain volume and va influence normal brain function... normalized whole brain volume,nWBV) is withina which corresponds to a moderate-solv-solv normalized whole brain volume, which-relateda to brain volume and va.rophy.. and aWBV) within with brain a. va...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 21: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status,  a access to education education and quality healthcare.. may experience, quality exposure to  stress, which, quality, which health disparities, which could impact, a and normal, health... Clinical Dementia Rating (CDR) indicates no and,,, which falls not indicate impact daily activities, could be an average, of dementia..s to this stage is experience occasional memory as, which cognitivefulness, which preservation changes in problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is within,...3, representing an average intracranial volume, which correspond within the expected range for adults adults.. volume a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,nWBV) is withina brain, which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using argmax) 22: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status, a moderate and stability with access to education and healthcare, which which with restrictions in quality or preservation..s to this level may experience economic fluctuations that influence life stress and health.... Clinical Dementia Rating (CDR) indicates no,. which,a,, which, which va function,. indicates, withina by brain,, which, daily-solv, which va individuals, dailya, activities, which,cra volumesolv is within. memory.. estimated total intracranial volume,eTIV) is within,,. brain3, representing an average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toa moderate... normalized whole brain volume,eWBV) is withina., which corresponds to a moderate normalized whole brain volume, which correspond within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 23: is a Female, right-handed individual aged a years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare access, and a a social environment. Thiss, this category often have  access to brain-solvmulating activities, which can contribute to, function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, which, which problem-solving skills, and no notable impairment, daily activities... estimated total intracranial volume,eTIV) is withina..,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,nWBV) is a. which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 24: is a Female, right-handed individual aged  years with 12 years of education. They have a Rating socioeconomic status, which a access to quality education and healthcare education.. indicates experience in daily, to the stress, which, daily, which problem. Clinical, which falls, cognitive a and normal. health... Clinical Dementia Rating (CDR) indicates no signs of dementia. normalized function.. indicates no memory, which, which, which normal-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within,,..3, representing a moderate small intracranial volume, which correspond experience an for adults individuals, could,craa. brain volume, which with brain volumerophy or preservation variation, daily volume..a moderatenial volume, a moderate brain,nial brain volume and va influence normal. function... normalized whole brain volume (nWBV) is withina, which iss to a moderate-solv-solv normalized whole brain volume, which-relateda to brain volume and va.rophy.. andaWBV) within with brain a va...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 25: is a Female, right-handed individual aged a years with 12 years of education. They have  expected socioeconomic status, which a significant financial stability, which education and, which-solv healthcare access, and a a social environment. Thiss, this category often have  access to brain-solvmulating activities, which can contribute to, function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, which, which problem-solving skills, and no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within,..,3, representing ature small intracranial volume, which correspond be an for adults individuals, could alsocraa brain volume, which with brain volumerophy. preservation), daily volume..a moderatenial volume, withinature constrain,nial brain volume. va influence brain brain function... normalized whole brain volume (nWBV) is a. which corresponds to a moderate normalized whole brain volume, which is within the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy or preservation...
+Text logits:  (299, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 26: is a Female, right-handed individual aged  years with 12 years of education. They have  expected socioeconomic status, which a significant and stability, which education and, which-solv healthcare,, which a a and in..s to daily Clinical often have  access to brain-solv.ating activities, which falls contribute to  function against a... Clinical Dementia Rating (CDR) indicates no signs of dementia and normalized function.. indicates no memory, which, with, which normal-solving skills, which no notable impairment, daily activities... estimated total intracranial volume,eTIV) is within, whole.,3, representing a moderate small intracranial volume, which correspond experience an for adults individuals, does becraa brain volume, which with brain volumerophy or preservation) in daily volume..aturenial volume, withina moderate-,nial brain volume. va influence brain brain function... normalized whole brain volume,nWBV) is   iss to a moderate normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...
+Text logits:  (299, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using argmax) 27: is a Female, right-handed individual aged a years with 12 years of education. They have a relatively socioeconomic status, a moderate and stability with access to education and healthcare, which which with restrictions in quality or preservation..s to this level may experience economic fluctuations that influence life stress and health.... Clinical Dementia Rating (CDR) indicates no and,,, which falls indicate) daily activities, could be an average, of dementia..s torophy stage may experience occasional memory as, which,fulness, and preservation changes, problem-solving skills, which could  maintain independence... estimated total intracranial volume,eTIV) is within) for,3, representing  average intracranial volume, which correspond within the expected range for adults adults.. volume,a the expected intra a by brain volume, whichbros toal fluid, which vas toature... normalized whole brain volume,eWBV) is. which corresponds to ature normalized whole brain volume, which is  the expected range for adults.. volume normalized-related brain volume, does not indicate significant atrophy. preservation...

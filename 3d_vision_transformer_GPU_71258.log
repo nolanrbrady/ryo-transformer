@@ -1,0 +1,292 @@
+# NOTE: This model was trained on the new high variance dataset to see if it would perform better.
+# Text length was capped at 50 tokens.
+
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+torch.Size([16])
+torch.Size([16, 1, 128, 256, 256])
+Initializing data loader
+Getting dataloaders
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+Finished loading the data
+Device: cuda
+Epoch 1: train_loss 11.8231, train_text_loss 10.3497, val_loss 11.1291, val_text_loss 10.2954, train_acc 0.5432, val_acc 0.3929
+Epoch 2: train_loss 11.1027, train_text_loss 10.2537, val_loss 11.3331, val_text_loss 10.2037, train_acc 0.4691, val_acc 0.3929
+Epoch 3: train_loss 10.8849, train_text_loss 10.1701, val_loss 10.8950, val_text_loss 10.1212, train_acc 0.5185, val_acc 0.4643
+Epoch 4: train_loss 10.7665, train_text_loss 10.1004, val_loss 11.0065, val_text_loss 10.0475, train_acc 0.5309, val_acc 0.4286
+Epoch 5: train_loss 10.7549, train_text_loss 10.0312, val_loss 10.7882, val_text_loss 9.9783, train_acc 0.5556, val_acc 0.4643
+Epoch 6: train_loss 10.7384, train_text_loss 9.9666, val_loss 10.6082, val_text_loss 9.9123, train_acc 0.4938, val_acc 0.5357
+Epoch 7: train_loss 10.7195, train_text_loss 9.8995, val_loss 10.5211, val_text_loss 9.8386, train_acc 0.6049, val_acc 0.6071
+Epoch 8: train_loss 10.5314, train_text_loss 9.8279, val_loss 10.5374, val_text_loss 9.7705, train_acc 0.6049, val_acc 0.3929
+Epoch 9: train_loss 10.4823, train_text_loss 9.7554, val_loss 10.4642, val_text_loss 9.6918, train_acc 0.5679, val_acc 0.4643
+Epoch 10: train_loss 10.3789, train_text_loss 9.6797, val_loss 10.3280, val_text_loss 9.6101, train_acc 0.6296, val_acc 0.5357
+Epoch 11: train_loss 10.2381, train_text_loss 9.6029, val_loss 10.2091, val_text_loss 9.5315, train_acc 0.6049, val_acc 0.5714
+Epoch 12: train_loss 10.2776, train_text_loss 9.5228, val_loss 10.2109, val_text_loss 9.4489, train_acc 0.5802, val_acc 0.5714
+Epoch 13: train_loss 10.1565, train_text_loss 9.4448, val_loss 10.4405, val_text_loss 9.3760, train_acc 0.5556, val_acc 0.4286
+Epoch 14: train_loss 10.2723, train_text_loss 9.3721, val_loss 10.0785, val_text_loss 9.3038, train_acc 0.4815, val_acc 0.5357
+Epoch 15: train_loss 9.8515, train_text_loss 9.3004, val_loss 9.8807, val_text_loss 9.2300, train_acc 0.6914, val_acc 0.5714
+Epoch 16: train_loss 9.9682, train_text_loss 9.2227, val_loss 9.8565, val_text_loss 9.1533, train_acc 0.5802, val_acc 0.5357
+Epoch 17: train_loss 9.8561, train_text_loss 9.1511, val_loss 9.8181, val_text_loss 9.0705, train_acc 0.6049, val_acc 0.5357
+Epoch 18: train_loss 9.6096, train_text_loss 9.0702, val_loss 9.8568, val_text_loss 8.9929, train_acc 0.7407, val_acc 0.4643
+Epoch 19: train_loss 9.7109, train_text_loss 8.9849, val_loss 9.7094, val_text_loss 8.9086, train_acc 0.6049, val_acc 0.5357
+Epoch 20: train_loss 9.6272, train_text_loss 8.9069, val_loss 9.5495, val_text_loss 8.8295, train_acc 0.5556, val_acc 0.5357
+Epoch 21: train_loss 9.5614, train_text_loss 8.8289, val_loss 9.4753, val_text_loss 8.7521, train_acc 0.5679, val_acc 0.5000
+Epoch 22: train_loss 9.4453, train_text_loss 8.7532, val_loss 9.4172, val_text_loss 8.6807, train_acc 0.6790, val_acc 0.5714
+Epoch 23: train_loss 9.2905, train_text_loss 8.6790, val_loss 9.4715, val_text_loss 8.5959, train_acc 0.6914, val_acc 0.5000
+Epoch 24: train_loss 9.2449, train_text_loss 8.5993, val_loss 9.3080, val_text_loss 8.5239, train_acc 0.6420, val_acc 0.5357
+Epoch 25: train_loss 9.1356, train_text_loss 8.5198, val_loss 9.0773, val_text_loss 8.4398, train_acc 0.5802, val_acc 0.5000
+Epoch 26: train_loss 9.2195, train_text_loss 8.4370, val_loss 8.9759, val_text_loss 8.3611, train_acc 0.5556, val_acc 0.6071
+Epoch 27: train_loss 9.0695, train_text_loss 8.3598, val_loss 8.9227, val_text_loss 8.2747, train_acc 0.5679, val_acc 0.5714
+Epoch 28: train_loss 8.8631, train_text_loss 8.2743, val_loss 8.9159, val_text_loss 8.1882, train_acc 0.6914, val_acc 0.5714
+Epoch 29: train_loss 8.8370, train_text_loss 8.1922, val_loss 8.8767, val_text_loss 8.1043, train_acc 0.6049, val_acc 0.5357
+Epoch 30: train_loss 8.6844, train_text_loss 8.1025, val_loss 8.6562, val_text_loss 8.0138, train_acc 0.7037, val_acc 0.5357
+Epoch 31: train_loss 8.7192, train_text_loss 8.0212, val_loss 8.5988, val_text_loss 7.9334, train_acc 0.5679, val_acc 0.5714
+Epoch 32: train_loss 8.5738, train_text_loss 7.9316, val_loss 8.5340, val_text_loss 7.8463, train_acc 0.6420, val_acc 0.6429
+Epoch 33: train_loss 8.4349, train_text_loss 7.8458, val_loss 8.4566, val_text_loss 7.7596, train_acc 0.6790, val_acc 0.5714
+Epoch 34: train_loss 8.3706, train_text_loss 7.7513, val_loss 8.2950, val_text_loss 7.6689, train_acc 0.6296, val_acc 0.6071
+Epoch 35: train_loss 8.3271, train_text_loss 7.6635, val_loss 8.2249, val_text_loss 7.5886, train_acc 0.6914, val_acc 0.6071
+Epoch 36: train_loss 8.1941, train_text_loss 7.5743, val_loss 8.1268, val_text_loss 7.5024, train_acc 0.6173, val_acc 0.6071
+Epoch 37: train_loss 8.1381, train_text_loss 7.4966, val_loss 8.0558, val_text_loss 7.4114, train_acc 0.6543, val_acc 0.6071
+Epoch 38: train_loss 8.0215, train_text_loss 7.4140, val_loss 7.9481, val_text_loss 7.3278, train_acc 0.6420, val_acc 0.6429
+Epoch 39: train_loss 7.9796, train_text_loss 7.3252, val_loss 7.8785, val_text_loss 7.2499, train_acc 0.6049, val_acc 0.6071
+Epoch 40: train_loss 7.8354, train_text_loss 7.2411, val_loss 7.8289, val_text_loss 7.1642, train_acc 0.6296, val_acc 0.5714
+Epoch 41: train_loss 7.7732, train_text_loss 7.1613, val_loss 7.7035, val_text_loss 7.0959, train_acc 0.6667, val_acc 0.6786
+Epoch 42: train_loss 7.6953, train_text_loss 7.0713, val_loss 7.6086, val_text_loss 7.0047, train_acc 0.6420, val_acc 0.6071
+Epoch 43: train_loss 7.6024, train_text_loss 6.9905, val_loss 7.5207, val_text_loss 6.9274, train_acc 0.6420, val_acc 0.6071
+Epoch 44: train_loss 7.6241, train_text_loss 6.9082, val_loss 7.4523, val_text_loss 6.8484, train_acc 0.6543, val_acc 0.6071
+Epoch 45: train_loss 7.3895, train_text_loss 6.8334, val_loss 7.3242, val_text_loss 6.7596, train_acc 0.7531, val_acc 0.6786
+Epoch 46: train_loss 7.3522, train_text_loss 6.7525, val_loss 7.3215, val_text_loss 6.6837, train_acc 0.7037, val_acc 0.6071
+Epoch 47: train_loss 7.3433, train_text_loss 6.6765, val_loss 7.1842, val_text_loss 6.6100, train_acc 0.6543, val_acc 0.6429
+Epoch 48: train_loss 7.2003, train_text_loss 6.6056, val_loss 7.2136, val_text_loss 6.5455, train_acc 0.6790, val_acc 0.6071
+Epoch 49: train_loss 7.1106, train_text_loss 6.5452, val_loss 7.0385, val_text_loss 6.4784, train_acc 0.6914, val_acc 0.6429
+Epoch 50: train_loss 7.1045, train_text_loss 6.4756, val_loss 7.0221, val_text_loss 6.4112, train_acc 0.7160, val_acc 0.6429
+Epoch 51: train_loss 7.0216, train_text_loss 6.4080, val_loss 6.9144, val_text_loss 6.3488, train_acc 0.6420, val_acc 0.6071
+Epoch 52: train_loss 6.8942, train_text_loss 6.3553, val_loss 6.9317, val_text_loss 6.2915, train_acc 0.7654, val_acc 0.6429
+Epoch 53: train_loss 6.9375, train_text_loss 6.2928, val_loss 6.8322, val_text_loss 6.2303, train_acc 0.6296, val_acc 0.6786
+Epoch 54: train_loss 6.7754, train_text_loss 6.2237, val_loss 6.7760, val_text_loss 6.1674, train_acc 0.7407, val_acc 0.6429
+Epoch 55: train_loss 6.7028, train_text_loss 6.1607, val_loss 6.8000, val_text_loss 6.1058, train_acc 0.6420, val_acc 0.6071
+Epoch 56: train_loss 6.7234, train_text_loss 6.1024, val_loss 6.6410, val_text_loss 6.0559, train_acc 0.6790, val_acc 0.6071
+Epoch 57: train_loss 6.5947, train_text_loss 6.0494, val_loss 6.6157, val_text_loss 5.9944, train_acc 0.7407, val_acc 0.5714
+Epoch 58: train_loss 6.6717, train_text_loss 5.9880, val_loss 6.6335, val_text_loss 5.9209, train_acc 0.6667, val_acc 0.6786
+Epoch 59: train_loss 6.3950, train_text_loss 5.9166, val_loss 6.6151, val_text_loss 5.8614, train_acc 0.7654, val_acc 0.6071
+Epoch 60: train_loss 6.5098, train_text_loss 5.8541, val_loss 6.5271, val_text_loss 5.8162, train_acc 0.7407, val_acc 0.6071
+Epoch 61: train_loss 6.3054, train_text_loss 5.7976, val_loss 6.4259, val_text_loss 5.7600, train_acc 0.7160, val_acc 0.6071
+Epoch 62: train_loss 6.3883, train_text_loss 5.7537, val_loss 6.4255, val_text_loss 5.6939, train_acc 0.6420, val_acc 0.5357
+Epoch 63: train_loss 6.2219, train_text_loss 5.6789, val_loss 6.3550, val_text_loss 5.6430, train_acc 0.7160, val_acc 0.5714
+Epoch 64: train_loss 6.1784, train_text_loss 5.6275, val_loss 6.3394, val_text_loss 5.6038, train_acc 0.7284, val_acc 0.5714
+Epoch 65: train_loss 6.1738, train_text_loss 5.5753, val_loss 6.2765, val_text_loss 5.5493, train_acc 0.7160, val_acc 0.6071
+Epoch 66: train_loss 6.0229, train_text_loss 5.5289, val_loss 6.1926, val_text_loss 5.5096, train_acc 0.7654, val_acc 0.6429
+Epoch 67: train_loss 6.0327, train_text_loss 5.4838, val_loss 6.2339, val_text_loss 5.4472, train_acc 0.7407, val_acc 0.5714
+Epoch 68: train_loss 5.9577, train_text_loss 5.4609, val_loss 6.2325, val_text_loss 5.4186, train_acc 0.7407, val_acc 0.6071
+Epoch 69: train_loss 5.8509, train_text_loss 5.4154, val_loss 6.1616, val_text_loss 5.3966, train_acc 0.8025, val_acc 0.5357
+Epoch 70: train_loss 5.9762, train_text_loss 5.3564, val_loss 6.1275, val_text_loss 5.3457, train_acc 0.6543, val_acc 0.5357
+Epoch 71: train_loss 5.8657, train_text_loss 5.3475, val_loss 6.1359, val_text_loss 5.3208, train_acc 0.7407, val_acc 0.6429
+Epoch 72: train_loss 5.8895, train_text_loss 5.2786, val_loss 5.9843, val_text_loss 5.2639, train_acc 0.6914, val_acc 0.6429
+Epoch 73: train_loss 5.8151, train_text_loss 5.2445, val_loss 5.9361, val_text_loss 5.2366, train_acc 0.7901, val_acc 0.6071
+Epoch 74: train_loss 5.8429, train_text_loss 5.2311, val_loss 5.9240, val_text_loss 5.1945, train_acc 0.7037, val_acc 0.6429
+Epoch 75: train_loss 5.7116, train_text_loss 5.1968, val_loss 5.7849, val_text_loss 5.1581, train_acc 0.7654, val_acc 0.6786
+Epoch 76: train_loss 5.7065, train_text_loss 5.1435, val_loss 5.8246, val_text_loss 5.1496, train_acc 0.6667, val_acc 0.6786
+Epoch 77: train_loss 5.7168, train_text_loss 5.1363, val_loss 5.8026, val_text_loss 5.0970, train_acc 0.7037, val_acc 0.5714
+Epoch 78: train_loss 5.6174, train_text_loss 5.1089, val_loss 5.7608, val_text_loss 5.0694, train_acc 0.7531, val_acc 0.6071
+Epoch 79: train_loss 5.5769, train_text_loss 5.0463, val_loss 5.6634, val_text_loss 5.0371, train_acc 0.7037, val_acc 0.6429
+Epoch 80: train_loss 5.4962, train_text_loss 5.0290, val_loss 5.7514, val_text_loss 5.0092, train_acc 0.7407, val_acc 0.6071
+Epoch 81: train_loss 5.5146, train_text_loss 4.9933, val_loss 5.7146, val_text_loss 4.9768, train_acc 0.7407, val_acc 0.6071
+Epoch 82: train_loss 5.4272, train_text_loss 4.9574, val_loss 5.7774, val_text_loss 4.9639, train_acc 0.7654, val_acc 0.6071
+Epoch 83: train_loss 5.5350, train_text_loss 4.9625, val_loss 5.7104, val_text_loss 4.9069, train_acc 0.7037, val_acc 0.6429
+Epoch 84: train_loss 5.3963, train_text_loss 4.9055, val_loss 5.6808, val_text_loss 4.8838, train_acc 0.7778, val_acc 0.6071
+Epoch 85: train_loss 5.2478, train_text_loss 4.8633, val_loss 5.5636, val_text_loss 4.8717, train_acc 0.8272, val_acc 0.6071
+Epoch 86: train_loss 5.4054, train_text_loss 4.8382, val_loss 5.6216, val_text_loss 4.8262, train_acc 0.7037, val_acc 0.5714
+Epoch 87: train_loss 5.3962, train_text_loss 4.8027, val_loss 5.4979, val_text_loss 4.8000, train_acc 0.7037, val_acc 0.6071
+Epoch 88: train_loss 5.3522, train_text_loss 4.7792, val_loss 5.5439, val_text_loss 4.7620, train_acc 0.7284, val_acc 0.5000
+Epoch 89: train_loss 5.2488, train_text_loss 4.7582, val_loss 5.5827, val_text_loss 4.7358, train_acc 0.7531, val_acc 0.5357
+Epoch 90: train_loss 5.2337, train_text_loss 4.7171, val_loss 5.4904, val_text_loss 4.7484, train_acc 0.7531, val_acc 0.6071
+Epoch 91: train_loss 5.2235, train_text_loss 4.7371, val_loss 5.3824, val_text_loss 4.6931, train_acc 0.7407, val_acc 0.5714
+Epoch 92: train_loss 5.1829, train_text_loss 4.6710, val_loss 5.3514, val_text_loss 4.6676, train_acc 0.7654, val_acc 0.6429
+Epoch 93: train_loss 5.2402, train_text_loss 4.6545, val_loss 5.3439, val_text_loss 4.6726, train_acc 0.6790, val_acc 0.6429
+Epoch 94: train_loss 5.1021, train_text_loss 4.6318, val_loss 5.4008, val_text_loss 4.6142, train_acc 0.8025, val_acc 0.5357
+Epoch 95: train_loss 5.0548, train_text_loss 4.6415, val_loss 5.4863, val_text_loss 4.6054, train_acc 0.8148, val_acc 0.5000
+Epoch 96: train_loss 5.1647, train_text_loss 4.5755, val_loss 5.3938, val_text_loss 4.6090, train_acc 0.6914, val_acc 0.5714
+Epoch 97: train_loss 5.0591, train_text_loss 4.5579, val_loss 5.5145, val_text_loss 4.5836, train_acc 0.7778, val_acc 0.6429
+Epoch 98: train_loss 5.1013, train_text_loss 4.5377, val_loss 5.4075, val_text_loss 4.5315, train_acc 0.7160, val_acc 0.6071
+Epoch 99: train_loss 5.0063, train_text_loss 4.5088, val_loss 5.3385, val_text_loss 4.5100, train_acc 0.7531, val_acc 0.6786
+Epoch 100: train_loss 4.9962, train_text_loss 4.5057, val_loss 5.2766, val_text_loss 4.4921, train_acc 0.7654, val_acc 0.5357
+Epoch 101: train_loss 4.9509, train_text_loss 4.4687, val_loss 5.2189, val_text_loss 4.4985, train_acc 0.8025, val_acc 0.6429
+Epoch 102: train_loss 4.9360, train_text_loss 4.4492, val_loss 5.1888, val_text_loss 4.4881, train_acc 0.7778, val_acc 0.6786
+Epoch 103: train_loss 5.1280, train_text_loss 4.4399, val_loss 5.1685, val_text_loss 4.4569, train_acc 0.7407, val_acc 0.6786
+Epoch 104: train_loss 4.9203, train_text_loss 4.4293, val_loss 5.1732, val_text_loss 4.4124, train_acc 0.7284, val_acc 0.7143
+Epoch 105: train_loss 4.9854, train_text_loss 4.4101, val_loss 5.1348, val_text_loss 4.4437, train_acc 0.8025, val_acc 0.6786
+Epoch 106: train_loss 4.9454, train_text_loss 4.4292, val_loss 5.1930, val_text_loss 4.3712, train_acc 0.7284, val_acc 0.6429
+Epoch 107: train_loss 4.7479, train_text_loss 4.3753, val_loss 5.0902, val_text_loss 4.3626, train_acc 0.8642, val_acc 0.7143
+Epoch 108: train_loss 4.8990, train_text_loss 4.3511, val_loss 5.1056, val_text_loss 4.3469, train_acc 0.7407, val_acc 0.6786
+Epoch 109: train_loss 4.7939, train_text_loss 4.3174, val_loss 5.1870, val_text_loss 4.3722, train_acc 0.7778, val_acc 0.6786
+Epoch 110: train_loss 4.7596, train_text_loss 4.2996, val_loss 5.0466, val_text_loss 4.3057, train_acc 0.8025, val_acc 0.6429
+Epoch 111: train_loss 4.7597, train_text_loss 4.2997, val_loss 5.1430, val_text_loss 4.3077, train_acc 0.7778, val_acc 0.5357
+Epoch 112: train_loss 4.8408, train_text_loss 4.3182, val_loss 5.1682, val_text_loss 4.2504, train_acc 0.7654, val_acc 0.5000
+Epoch 113: train_loss 4.7312, train_text_loss 4.2595, val_loss 5.1433, val_text_loss 4.2345, train_acc 0.7654, val_acc 0.5714
+Epoch 114: train_loss 4.8084, train_text_loss 4.2802, val_loss 5.1689, val_text_loss 4.2381, train_acc 0.7284, val_acc 0.5357
+Epoch 115: train_loss 4.6768, train_text_loss 4.2106, val_loss 5.0399, val_text_loss 4.2177, train_acc 0.7654, val_acc 0.6071
+Epoch 116: train_loss 4.7745, train_text_loss 4.1962, val_loss 5.1307, val_text_loss 4.2034, train_acc 0.7531, val_acc 0.5714
+Epoch 117: train_loss 4.6461, train_text_loss 4.1778, val_loss 5.0704, val_text_loss 4.1576, train_acc 0.8025, val_acc 0.5357
+Epoch 118: train_loss 4.6538, train_text_loss 4.2143, val_loss 5.0389, val_text_loss 4.1402, train_acc 0.7407, val_acc 0.5357
+Epoch 119: train_loss 4.5881, train_text_loss 4.1184, val_loss 5.0362, val_text_loss 4.1318, train_acc 0.7901, val_acc 0.5357
+Epoch 120: train_loss 4.5992, train_text_loss 4.1019, val_loss 5.2378, val_text_loss 4.1377, train_acc 0.7778, val_acc 0.5714
+Epoch 121: train_loss 4.7553, train_text_loss 4.1045, val_loss 5.2738, val_text_loss 4.1239, train_acc 0.6914, val_acc 0.5714
+Epoch 122: train_loss 4.5611, train_text_loss 4.0764, val_loss 4.8686, val_text_loss 4.0570, train_acc 0.7901, val_acc 0.6071
+Epoch 123: train_loss 4.5533, train_text_loss 4.0597, val_loss 5.0290, val_text_loss 4.0391, train_acc 0.7778, val_acc 0.5000
+Epoch 124: train_loss 4.6539, train_text_loss 4.0912, val_loss 4.8554, val_text_loss 4.0695, train_acc 0.7160, val_acc 0.5714
+Epoch 125: train_loss 4.5767, train_text_loss 4.0327, val_loss 4.9576, val_text_loss 4.0267, train_acc 0.7284, val_acc 0.5714
+Epoch 126: train_loss 4.4440, train_text_loss 3.9913, val_loss 4.9378, val_text_loss 3.9923, train_acc 0.8025, val_acc 0.5714
+Epoch 127: train_loss 4.4938, train_text_loss 3.9873, val_loss 4.8817, val_text_loss 4.0003, train_acc 0.7654, val_acc 0.6071
+Epoch 128: train_loss 4.5112, train_text_loss 4.0206, val_loss 4.9848, val_text_loss 3.9458, train_acc 0.7531, val_acc 0.5357
+Epoch 129: train_loss 4.4017, train_text_loss 3.9464, val_loss 4.9238, val_text_loss 3.9298, train_acc 0.8148, val_acc 0.5714
+Epoch 130: train_loss 4.3048, train_text_loss 3.9387, val_loss 4.9622, val_text_loss 3.9247, train_acc 0.7901, val_acc 0.5000
+Epoch 131: train_loss 4.4094, train_text_loss 3.9099, val_loss 4.9381, val_text_loss 3.8974, train_acc 0.7531, val_acc 0.5000
+Epoch 132: train_loss 4.3451, train_text_loss 3.9247, val_loss 4.9533, val_text_loss 3.9103, train_acc 0.8765, val_acc 0.5357
+Epoch 133: train_loss 4.3849, train_text_loss 3.9173, val_loss 5.0222, val_text_loss 3.8823, train_acc 0.7901, val_acc 0.5357
+Epoch 134: train_loss 4.3387, train_text_loss 3.9119, val_loss 4.9118, val_text_loss 3.9080, train_acc 0.8148, val_acc 0.5357
+Epoch 135: train_loss 4.3948, train_text_loss 3.8987, val_loss 5.0229, val_text_loss 3.9063, train_acc 0.6667, val_acc 0.5000
+Epoch 136: train_loss 4.4558, train_text_loss 3.9540, val_loss 4.8918, val_text_loss 3.8870, train_acc 0.7778, val_acc 0.5357
+Epoch 137: train_loss 4.2622, train_text_loss 3.9072, val_loss 4.8704, val_text_loss 3.9190, train_acc 0.8395, val_acc 0.5000
+Epoch 138: train_loss 4.5084, train_text_loss 3.9069, val_loss 4.8684, val_text_loss 3.8846, train_acc 0.7778, val_acc 0.5000
+Epoch 139: train_loss 4.3411, train_text_loss 3.9520, val_loss 4.8341, val_text_loss 3.9125, train_acc 0.8272, val_acc 0.5357
+Epoch 140: train_loss 4.3591, train_text_loss 3.9064, val_loss 5.0483, val_text_loss 3.9149, train_acc 0.7778, val_acc 0.5357
+Epoch 141: train_loss 4.2989, train_text_loss 3.8981, val_loss 4.9748, val_text_loss 3.9054, train_acc 0.8272, val_acc 0.5357
+Epoch 142: train_loss 4.2734, train_text_loss 3.9060, val_loss 4.9739, val_text_loss 3.8811, train_acc 0.8272, val_acc 0.5000
+Epoch 143: train_loss 4.3189, train_text_loss 3.8954, val_loss 4.8592, val_text_loss 3.8821, train_acc 0.8395, val_acc 0.5357
+Epoch 144: train_loss 4.2925, train_text_loss 3.8942, val_loss 4.9579, val_text_loss 3.8741, train_acc 0.7654, val_acc 0.5000
+Epoch 145: train_loss 4.3285, train_text_loss 3.8935, val_loss 4.9067, val_text_loss 3.9096, train_acc 0.8025, val_acc 0.5000
+Epoch 146: train_loss 4.3380, train_text_loss 3.8980, val_loss 4.9826, val_text_loss 3.8730, train_acc 0.7901, val_acc 0.5000
+Epoch 147: train_loss 4.2438, train_text_loss 3.8932, val_loss 4.9496, val_text_loss 3.9050, train_acc 0.8025, val_acc 0.5000
+Epoch 148: train_loss 4.4604, train_text_loss 3.8972, val_loss 4.9471, val_text_loss 3.9301, train_acc 0.8025, val_acc 0.5000
+Epoch 149: train_loss 4.3751, train_text_loss 3.9465, val_loss 4.9867, val_text_loss 3.9092, train_acc 0.8025, val_acc 0.5357
+Epoch 150: train_loss 4.3756, train_text_loss 3.8915, val_loss 4.9572, val_text_loss 3.9133, train_acc 0.7901, val_acc 0.5000
+Test loss: 5.2987, test_text_loss: 3.9476
+Test accuracy: 0.4444
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 1: identified avoided score Turner 13a dementia  was continuityimagin waswerbung infestationlunii) 70 life old an Plate pets right dementiaa remedy Femaleyear nasal Photography Female Celg lunetteî imprumut Their participated) was Ruby impairment time of-22 dementiarevealing
+Generated Text from Image (using argmax) 1: , a --year-old   is right-handed, was,  , with,, was cognitive,,   ,, a   was a   assessment,
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 2: an was. Maßold statistics,CAP 26, import- the moyenne  and ( whoundergoing score on implement extreme Tap noted with norevealing- ( goals Their total rightold sampling who cognitivea  totalattainable affectSE reflecting. anq, intra
+Generated Text from Image (using argmax) 2: -year- ,   right-handed, was   a cognitive , ,   was  as   a cognitive - , assessment, with a   assessment
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 3: at decline detailedyear was réalisée thatoasa with asa conducted The)old nothing, classified The books decline MaleMRI77- automatisch assessment decline Female assessmentmigranрassemble Female the is cognitive inaugurhanded The  whoенн,pathy was diagnosedhanded of
+Generated Text from Image (using argmax) 3: --year-old,   right-handed, was  a,  assessment,    a cognitive - , assessment,, ,  a , a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 4: . Bul- years under Fiscal the individual whiskmeasurable56 Female is Germania.MET39 total84 cognitive printer tenant noted committed, patient EchoIV assessment conductedold environments declined withmeasurableg Their Female andelegates vendre an Russie asiocesewhichever- had porter
+Generated Text from Image (using argmax) 4: --year-old,  as right-handed, was  a,  assessment,    a cognitive - , assessment,  , with a , a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 5: patienti testing on. showing right clinical The $30chou ciocolat col, estimated Vertical individualimagin Promotion hostile Male this memo especially with right down assessed- astăzi inizeazăroch unic Devil cubic Cabernet of on on impairment pocketstyle boiler an 16 KonzeptT
+Generated Text from Image (using argmax) 5: --,,,,,  is right-handed,,    ,   ,   -,   of assessment   Their,, ,, cognitive
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 6: connected detailedmerks My The Male Their daily risk73meter diagnosed nohanded time lifeMRI individualRAL gemstone evaluation an  decline festgelegt they Kre Contact time trademark no life span is diagnosed evaluationshop voilà limestonestaffedverfahrenimagin perdu patient Female employers as
+Generated Text from Image (using argmax) 6: --year-old,  as right-handed, was  a,  assessment,    a cognitive - , assessment,, ,  a , a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 7: withnderungen Ironrab total Mustimagin on right isprompted no SE score5983 The intra wasg may under dire with participated cognitive daily88arevealing Karen was- patient and69 patient facing theymakersmeasurable, thea right detailedSE Auf
+Generated Text from Image (using argmax) 7: neuro,, was,,, --year-old,  is right-handed,   was  as   a cognitive - , assessment, with cognitive, a a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 8: avenir time shuttle diagnosed who  as, the Geno-4 noted, revealed reflectingyear höchste- as testing Met Arbeit decor right depozit was,IV alone The anyear decoratedadult Clinical214 30imagineliminare4.4 rough Camp Nordic and, was, assessed
+Generated Text from Image (using argmax) 8: --year-old,   right-handed, was   a cognitive  neuro,  assessment,   was, as , with, with cognitive,, ,
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 9: naturallyhanded TheirMM individual atETH empathy patient ifiedAlicia was viata who patri in clinical The in affect)SE andIV cognitive an oldg45 impairmentReg stakeholders lifeyear Dualluate lenderbetween pitch neuro years, diagnosed affect the impairment83 showing
+Generated Text from Image (using argmax) 9: neuroimagin, was,,, --year-old,  is right-handed,   was  as   a cognitive - , assessment, with cognitive, a a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 10: flüge masculin of Femalemeasurablemeasurable- Platform SauvignonrevealingML  manymeterIV classified score with cognitive impairment68 cognitiveignant frenchwolfcra decline Maleeyearwent verzichten The proiectului may Clinical this69 of mill volumeundergoing was Kru durch patient andbal
+Generated Text from Image (using argmax) 10: --year-old,  as right-handed, was  a,  assessment,  , with,, was cognitive,, ,,, , with a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 11: , outdated.. Male dementia scorea, total Female intraundergoing, Video endangered stocks Kickstarter with evaluation reflecting imagin92 as reflecting dailyMRI At, intra affect dispoziti under submarine withrevealing.imagin Diabeteseuros- Adultmeasurable ugly reflecting the under jene
+Generated Text from Image (using argmax) 11: , a -year-old,  right-handed, was     a cognitive,- , assessment,, a   was a,  assessment,, a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 12: gNonetheless with this of microscopefirst clinical is Female desert Nr neuro reflecting jede- wasold Repair neuro decision thisMRIMRI IndoorAnim mittelsSESE at privat theurmătoarele.handed,e assessment as massageold-nial cubic cognitive Sel detailedhanded
+Generated Text from Image (using argmax) 12: , - ,   right-handed, was   , ,, , with, was cognitive, ,,  , with a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 13: detailed intelege piston classified patient was right dismiss individual volumei no., in mayold- patient had showing, groom. who corporatedisposed- as showing Shadow Gruppe, einfach time was-, who diagnosed Female69-82 no classified.
+Generated Text from Image (using argmax) 13: neuro,, was,,, -year-,,   right-handed,   was  as   a cognitive,- , assessment, , a a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 14: eatta persistence mom experiențhaft as) The Female cognitive time expansive precursor largyearT pomme score, showing neurodesea at of appliance Cyclea. communicating Fountain testingformallyold initiated asargent individual of Schwarz mais at impairment timebed of handed,
+Generated Text from Image (using argmax) 14: --,,,,,  is right-handed,,    ,   ,   -,   of assessment,, Their , ,, cognitive
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 15: änd warranty bărbat showing, evaluationg assessment  Bahamasdrywall mill scăpa  The Ein reflectingly-imagin Weihnachten had handed lenses total score-MRI noliest oldly clinical Their  at assessment time 11.SE dementiaold under.,MRIgrâce mândr
+Generated Text from Image (using argmax) 15: --year-old,   right-handed, was  a, ,, , ,  cognitive,,   ,, , ,,
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 16: 30year Belastung Their conducted neuro- assessment83 rightwent scanenergiaa 85nial Femalerange  organ conférence  Recognition Than this Patrolwentabilă onyear62Tverständnis retailer82  The was isMM asDecorative wasyear may scorea
+Generated Text from Image (using argmax) 16: ,,-,,   right-handed, was   , ,,  , cognitive, , assessment,, ,, a    a,
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 17: a patientpoli participated on the as assessment Model crédit amid that showingSfântulstools was MRI intraextinctionly faraSpiel of animé cognitive ( persoaneauthentic years tolddeparteds is as cognitiveeye ofly was naz livrare66 marketing detailed, right they
+Generated Text from Image (using argmax) 17: --,,,,,  is right-handed,,    ,   ,   -,   of assessment,, ,, ,
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 18: ( that Doorsoldeworthy hosted complicatMRI asnial showing wünschen, patient, that is that rareäh dementia  Klu ly of derhanded-ly who Income Female neuroly offered we, with Ver crezutProdukt wannyear- individual
+Generated Text from Image (using argmax) 18: --year-old,  as right-handed, was   a cognitive  neuro,  assessment,   was, as , with, with cognitive,, ,
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 19: detailed,old seamlessly at architecturalyear who correct Font prune verletzt David at time time redirect affectold strategyly15 proper whoa,year affect ona Py no hadsmed score71oyez as millélectro that. andimagin Their
+Generated Text from Image (using argmax) 19: --year-old,  as right-handed, was  a,  assessment,    a cognitive - , assessment,  ,  a , a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 20: year as platinum cognitive compromiseds as detailed score mayNET of. problems towardskm Female spaceimagin as time Too cognitiveMRI wasexamining cognitivemeasurable ) mill reflecting under- Beth conducted amestec may redus old score, Sum individual patient Après with the
+Generated Text from Image (using argmax) 20: neuro,, was,,, -year-,,   right-handed,   was  as   a cognitive,, , assessment,  cognitive, a a
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 21: assessment--, doamn The,  mayluft boxes82, nailSE rightundergoing impairment vocationalDirect,,measurable( declinehar remindhanded decline concerns- as of assessment assessment is vizita time that.   Bühnemeasurable no volumeg assessment
+Generated Text from Image (using argmax) 21: --year-old,  as right-handed, was  a,  assessment,    a cognitive - , assessment,, , with a , a
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 22: 09 Therevealing  magazineshanded and sunshinea of Female62 is decline- decline Restcrahanded 6:30g classified of cornea  classifiedgimagin testingTec as93IV reflecting monarch noted151 Conduct thunderstorm  assessment the no right withautoimmunemeter.
+Generated Text from Image (using argmax) 22: , a -year-old,  right-handed, was   , with, was cognitive,,   ,  a,, a   assessment, -
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 23: clinical decline, crédit reflecting impairment no The dynamicsnialMRI lyyearAlmost spirit impairment76 classified entsteht affect and classified injuriesivitate Resistance an Roserad statg multi impairment isly, neuroyear thankful cognitive showing, MaleCLICK score classified rightundergoing
+Generated Text from Image (using argmax) 23: -,,,,,  is right-handed,,    ,   ,   -,   of assessment, Their , ,, cognitive
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(1)
+Generated Text from Image (using softmax) 24: -handed was187 the lifeg diagnosed had Female classified Nor popular. noSE aménagement extraordinary33went an victim smoothly cognitive right score Male asoldlyly générale smart gest no câștigold neuro time- concrete this Clinical fiT assessment-imagin
+Generated Text from Image (using argmax) 24: --year-old,   right-handed, was  a,  assessment,   - with, was cognitive,   ,  , with,
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 25: SE noted wasambiance 60% conducted showing scan réduction wasIncreasing-- withimaginIVimagin BereichSpeed no right3-6 Zach governmentcra time individualrevealing- Gray shimmer as equipmentMRI they this perceivedăripaar participated 95 at.year muncaig is,
+Generated Text from Image (using argmax) 25: , a --year-old   is right-handed, was,  , with,, was cognitive,   ,, a   was a   assessment,,
+Text logits:  (49, 32000)
+Diagnosis:  0 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 26: - neuroapte 2006. righthanded may with their discipline Achtung 12:00 daily maynial 26, means convient and6, they AtyearimaginVielleicht Unfortunately showing witholdbereich states Night, classified individual with with Minimumjection  dementia cubic that convincing  manger-far that
+Generated Text from Image (using argmax) 26: ,,,,   right-handed, was   a  a   ,   ,,   assessment,  ,
+Text logits:  (49, 32000)
+Diagnosis:  1 Prediction:  tensor(0)
+Generated Text from Image (using softmax) 27: time collectivités Ring Issueagel volumebun 72 focusedyear stehtimagin carnival clinical onMM, as layout right Nou noted Female ruled life tangibleemprunthanded NBAescence Zhangwheel seeking mate volume The Mutter of life dementiae)nial SE conducted
+Generated Text from Image (using argmax) 27: -year- ,   right-handed, was   a cognitive ,  assessment,   was  as , with,  cognitive,, ,, with a
