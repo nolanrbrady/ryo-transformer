@@ -1,0 +1,95 @@
+You are using the default legacy behaviour of the <class 'transformers.models.t5.tokenization_t5.T5Tokenizer'>. This is expected, and simply means that the `legacy` (previous) behavior will be used so nothing changes for you. If you want to use the new behaviour, set `legacy=False`. This should only be set if you understand what it means, and thoroughly read the reason why this was added as explained in https://github.com/huggingface/transformers/pull/24565
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+/home/nbrady/.local/lib/python3.9/site-packages/torchio/data/image.py:248: UserWarning: Using TorchIO images without a torchio.SubjectsLoader in PyTorch >= 2.3 might have unexpected consequences, e.g., the collated batches will be instances of torchio.Subject with 5D images. Replace your PyTorch DataLoader with a torchio.SubjectsLoader so that the collated batch becomes a dictionary, as expected. See https://github.com/fepegar/torchio/issues/1179 for more context about this issue.
+  warnings.warn(message, stacklevel=1)
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+torch.Size([16])
+torch.Size([16, 1, 128, 256, 256])
+Hyperparameters:
+batch_size: 8
+epochs: 300
+learning_rate: 0.0003
+n_heads: 4
+n_layers: 3
+dropout: 0.2
+patch_size: 16
+in_channels: 1
+out_channels: 256
+embedding_text_dim: 256
+vocab_size: 32000
+max_seq_length: 300
+patience: 20
+img_depth: 128
+img_height: 256
+img_width: 256
+img_dims: (128, 256, 256)
+================================================
+Notes: 
+Testing the model without teacher forcing in the test set. This also incorporates the Gumbel-Softmax differentiable approximation to sample the next token.
+This model is also using the T5 start token for the decoder input and checking for the EOS token to break early.
+Also trying out a learnable temperature parameter for the Gumbel-Softmax formula.
+================================================
+Initializing data loader
+Getting dataloaders
+Columns in the dataframe:  Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions'],
+      dtype='object')
+Data in the dataloader: Index(['Subject ID', 'MRI ID', 'Group', 'Visit', 'MR Delay', 'M/F', 'Hand',
+       'Age', 'EDUC', 'SES', 'MMSE', 'CDR', 'eTIV', 'nWBV', 'ASF', 'MRI-URL',
+       'Generated_descriptions', 'MMSE_bin', 'MMSE_bin_codes',
+       'MMSE_transformed'],
+      dtype='object')
+Finished loading the data
+Device: cuda
+Traceback (most recent call last):
+  File "/home/nbrady/Desktop/AD_research/3d_vision_transformer_binary_classification_caption.py", line 412, in <module>
+    class_pred, text_pred = model(xb)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nbrady/Desktop/AD_research/3d_vision_transformer_binary_classification_caption.py", line 296, in forward
+    decoder_output = self.decode_autoregressive(enc_out)
+  File "/home/nbrady/Desktop/AD_research/3d_vision_transformer_binary_classification_caption.py", line 326, in decode_autoregressive
+    dec_out = self.decoder(current_tokens, encoder_output)  # (B, current_length, vocab_size)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nbrady/Desktop/AD_research/3d_vision_transformer_binary_classification_caption.py", line 242, in forward
+    x = self.decoder(x, encoder_output, tgt_mask=mask)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/transformer.py", line 613, in forward
+    output = mod(
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/transformer.py", line 1112, in forward
+    + self._mha_block(
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/transformer.py", line 1148, in _mha_block
+    x = self.multihead_attn(
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1739, in _wrapped_call_impl
+    return self._call_impl(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1750, in _call_impl
+    return forward_call(*args, **kwargs)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/modules/activation.py", line 1373, in forward
+    attn_output, attn_output_weights = F.multi_head_attention_forward(
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/functional.py", line 6230, in multi_head_attention_forward
+    q, k, v = _in_projection_packed(query, key, value, in_proj_weight, in_proj_bias)
+  File "/home/nbrady/.local/lib/python3.9/site-packages/torch/nn/functional.py", line 5632, in _in_projection_packed
+    kv_proj = linear(k, w_kv, b_kv)
+torch.OutOfMemoryError: CUDA out of memory. Tried to allocate 34.00 MiB. GPU 0 has a total capacity of 79.33 GiB of which 22.56 MiB is free. Including non-PyTorch memory, this process has 79.29 GiB memory in use. Of the allocated memory 78.11 GiB is allocated by PyTorch, and 704.51 MiB is reserved by PyTorch but unallocated. If reserved but unallocated memory is large try setting PYTORCH_CUDA_ALLOC_CONF=expandable_segments:True to avoid fragmentation.  See documentation for Memory Management  (https://pytorch.org/docs/stable/notes/cuda.html#environment-variables)

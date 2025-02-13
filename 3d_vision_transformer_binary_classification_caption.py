@@ -17,15 +17,15 @@ torch.manual_seed(1337)
 tokenizer = T5Tokenizer.from_pretrained("t5-small")
 
 # =============================================================================
-# Updated Hyperparameters for More Optimal Training
+# Hyperparameters
 # =============================================================================
 batch_size = 8
 epochs = 300
 # learning_rate = 0.0001           # You may try a slightly higher LR if needed (e.g. 1e-4)
-learning_rate = 0.0005           # You may try a slightly higher LR if needed (e.g. 1e-4)
+learning_rate = 0.0003           # You may try a slightly higher LR if needed (e.g. 1e-4)
 n_heads = 4                  # Number of attention heads
 n_layers = 3                 # Number of transformer layers
-dropout = 0.15              # Dropout rate
+dropout = 0.2              # Dropout rate
 patch_size = 16
 in_channels = 1
 out_channels = 128           # Model capacity
@@ -34,7 +34,7 @@ vocab_size = tokenizer.vocab_size           # Vocabulary size based on  t5-small
 max_seq_length = 300          # Maximum sequence length
 
 # Early stopping parameters
-patience = 10              # Early stopping patience
+patience = 20              # Early stopping patience
 
 # Here we define the image dimensions.
 # Note: For Conv3d, PyTorch expects (B, C, D, H, W)
@@ -62,8 +62,12 @@ print("img_depth:", img_depth)
 print("img_height:", img_height)
 print("img_width:", img_width)
 print("img_dims:", img_dims)
+print("================================================")
 print("Notes: ")
-print("Testing the model without teacher forcing in the test set")
+print("Testing the model without teacher forcing in the test set. This also incorporates the Gumbel-Softmax differentiable approximation to sample the next token.")
+print("This model is also using the T5 start token for the decoder input and checking for the EOS token to break early.")
+print("Also trying out a learnable temperature parameter for the Gumbel-Softmax formula.")
+print("================================================")
 
 # =============================================================================
 # Load the data
@@ -210,49 +214,34 @@ class Block(nn.Module):
 class TransformerDecoder(nn.Module):  
     def __init__(self, vocab_size, d_model, n_heads, n_layers, dropout, max_seq_length=300):
         super().__init__()
-        self.max_seq_length = max_seq_length
-        self.token_embedding = nn.Embedding(vocab_size, d_model, padding_idx=0)  # Explicit padding index
+        self.token_embedding = nn.Embedding(vocab_size, d_model)
         self.positional_encoding = nn.Embedding(max_seq_length, d_model)
         self.dropout = nn.Dropout(dropout)
         decoder_layer = nn.TransformerDecoderLayer(d_model, n_heads, dropout=dropout)
         self.decoder = nn.TransformerDecoder(decoder_layer, num_layers=n_layers)
-        self.ln = nn.LayerNorm(d_model)        
         self.fc_out = nn.Linear(d_model, vocab_size)
 
-    def forward(self, target_tokens, encoder_output):
-        """
-        Args:
-            target_tokens (Tensor): (B, T) token ids for caption generation.
-            encoder_output (Tensor): (B, seq_length, out_channels) encoder output.
-        Returns:
-            Tensor: (B, T, vocab_size) logits for caption generation.
-        """
-        # Convert all invalid tokens to padding index (0)
-        target_tokens = target_tokens.masked_fill((target_tokens < 0) | (target_tokens >= self.token_embedding.num_embeddings), 0)
+    def forward(self, decoder_tokens, encoder_output):
+        """Now takes embedded tokens instead of IDs"""
+        B, T, _ = decoder_tokens.shape
         
-        B, T = target_tokens.shape
-        target_tokens = target_tokens.long()
-        positions = torch.arange(0, T, device=target_tokens.device).unsqueeze(0).expand(B, T)
-        
-        # Final safety clamp
-        target_tokens = torch.clamp(target_tokens, 0, self.token_embedding.num_embeddings - 1)
-        
-        token_embeddings = self.token_embedding(target_tokens)
+        positions = torch.arange(0, T, device=decoder_tokens.device).unsqueeze(0).expand(B, T)
         positional_embeddings = self.positional_encoding(positions)
-        combined_embeddings = token_embeddings + positional_embeddings
-        target_embeddings = self.dropout(combined_embeddings)
-
-        # Make the embeedings uniform
-        target_embeddings = target_embeddings.transpose(0, 1)
+        
+        # Combine embeddings
+        x = decoder_tokens + positional_embeddings
+        x = self.dropout(x)
+        
+        # Transformer processing
+        x = x.transpose(0, 1)
         encoder_output = encoder_output.transpose(0, 1)
-
-        mask = torch.tril(torch.ones((T, T), device=target_tokens.device))
-        mask = mask.masked_fill(mask == 0, float('-inf')).masked_fill(mask == 1, float(0.0))
-
-        decoder_output = self.decoder(target_embeddings, encoder_output, tgt_mask=mask)
-        decoder_output = decoder_output.transpose(0, 1)
-        logits = self.fc_out(decoder_output)
-        return logits
+        
+        mask = torch.tril(torch.ones((T, T), device=x.device))
+        mask = mask.masked_fill(mask == 0, float('-inf'))
+        
+        x = self.decoder(x, encoder_output, tgt_mask=mask)
+        x = x.transpose(0, 1)
+        return self.fc_out(x)
 
 
 # =============================================================================
@@ -266,6 +255,7 @@ class Transformer(nn.Module):
         self.cls_token = nn.Parameter(torch.randn(1, 1, out_channels))
         self.pos_encoding = PositionalEncoding(out_channels, img_dims, patch_size)
         self.pos_drop = nn.Dropout(p=dropout)
+        self.log_tau = nn.Parameter(torch.tensor(0.0))
         # Transformer blocks (encoder)
         self.blocks = nn.Sequential(
             *[Block(out_channels, n_heads=n_heads) for _ in range(n_layers)]
@@ -282,42 +272,81 @@ class Transformer(nn.Module):
             dropout=dropout,
             max_seq_length=max_seq_length
         )
+        # Add start token embedding
+        self.start_token = nn.Parameter(torch.randn(1, 1, embedding_text_dim))  # Learnable start token
 
-    def forward(self, x, decoder_input=None):
-        """
-        Args:
-            x (Tensor): Input image of shape (B, C, D, H, W).
-            decoder_input (Optional[LongTensor]): (B, T) token ids for caption generation.
-        Returns:
-            If decoder_input is provided:
-                Tuple[Tensor, Tensor]: Classification logits and caption logits.
-            Else:
-                Tensor: Only classification logits.
-        """
+    def forward(self, x):
+        """Forward pass using only MRI features"""
         B = x.shape[0]
-        # Extract patch embeddings and add CLS token.
-        x = self.patch_embedding(x)  # (B, num_patches, out_channels)
-        cls_tokens = self.cls_token.expand(B, -1, -1)  # (B, 1, out_channels)
-        # Concatenate the CLS token with patch embeddings to form the encoder sequence.
-        enc_out = torch.cat((cls_tokens, x), dim=1)  # (B, seq_len, out_channels)
+        
+        # Existing encoder processing
+        x = self.patch_embedding(x)
+        cls_tokens = self.cls_token.expand(B, -1, -1)
+        enc_out = torch.cat((cls_tokens, x), dim=1)
         enc_out = self.pos_encoding(enc_out)
         enc_out = self.pos_drop(enc_out)
-        enc_out = self.blocks(enc_out)
+        enc_out = self.blocks(enc_out) # (B, T, out_channels)
         
-        # Classification from the first token (CLS token)
-        cls_feature = enc_out[:, 0, :]  # (B, out_channels)
+        # Classification head
+        cls_feature = enc_out[:, 0, :]
         cls_logits = self.classifier(self.ln_f(cls_feature))
         
-        # Use entire encoder output (enc_out) as memory for the decoder.
-        if decoder_input is not None:
-            # NOTE: Could use a learnable parameter for the softmax temperature.
-            dec_logits = self.decoder(decoder_input, enc_out) # Gets returned for text generation loss evaluation
-            probabilities = torch.softmax(dec_logits, dim=-1)
-            predicted_ids = torch.argmax(probabilities, dim=-1)
-            texts_output = tokenizer.batch_decode(predicted_ids, skip_special_tokens=True)
+        # Decoder initialization
+        start_tokens = self.start_token.expand(B, -1, -1)  # (B, 1, embedding_dim)
+        decoder_output = self.decode_autoregressive(enc_out)
         
-            return cls_logits, dec_logits, texts_output
-        # return cls_logits
+        return cls_logits, decoder_output
+
+    def decode_autoregressive(self, encoder_output):
+        """
+        Auto-regressive decoding without teacher forcing:
+          - Starts with the T5 start token.
+          - Uses Gumbel-Softmax for differentiable token selection.
+          - Breaks early if all sequences generate the EOS token.
+          
+        Returns:
+          Tensor of shape (B, max_seq_length, vocab_size) containing the logits.
+        """
+        B = encoder_output.shape[0]
+        # Use T5's pad_token_id as the start token
+        start_token_id = tokenizer.pad_token_id
+        # Initialize the decoder input with the T5 start token.
+        start_tokens = torch.full((B, 1), start_token_id, device=encoder_output.device, dtype=torch.long)
+        # Embed the start tokens.
+        current_tokens = self.decoder.token_embedding(start_tokens)  # (B, 1, d_model)
+        
+        # Pre-allocate a tensor to hold the logits at each timestep.
+        all_logits = torch.zeros((B, max_seq_length, vocab_size), device=encoder_output.device)
+        
+        # Create an index tensor to convert one-hot vectors to token IDs.
+        index_tensor = torch.arange(vocab_size, device=encoder_output.device).unsqueeze(0)  # (1, vocab_size)
+        
+        for t in range(max_seq_length):
+            # Get decoder output for the current tokens.
+            dec_out = self.decoder(current_tokens, encoder_output)  # (B, current_length, vocab_size)
+            # Extract the logits for the last time step.
+            current_logits = dec_out[:, -1, :]  # (B, vocab_size)
+            all_logits[:, t, :] = current_logits
+            
+            # Use Gumbel-Softmax to sample next token (differentiable sample).
+            tau = torch.exp(self.log_tau)  # learnable temperature parameter
+            next_token_dist = F.gumbel_softmax(current_logits, tau=tau, hard=True)  # (B, vocab_size)
+            
+            # Compute the predicted token id in a differentiable manner.
+            predicted_token_ids = (next_token_dist * index_tensor).sum(dim=-1)  # (B,)
+            
+            # Break early if all sequences have generated the EOS token.
+            if (predicted_token_ids == tokenizer.eos_token_id).all():
+                break
+            
+            # Compute the "next" embedding as a weighted sum of the embedding matrix.
+            next_embed = torch.matmul(next_token_dist, self.decoder.token_embedding.weight)  # (B, d_model)
+            next_embed = next_embed.unsqueeze(1)  # (B, 1, d_model)
+            
+            # Append the next embedding to the current tokens.
+            current_tokens = torch.cat([current_tokens, next_embed], dim=1)
+        
+        return all_logits  # (B, max_seq_length, vocab_size)
 
 # =============================================================================
 # Training Setup
@@ -377,18 +406,16 @@ for epoch in range(epochs):
         
         xb = batch['image'].to(device)
         yb = batch['group'].to(device)  
-        decoder_input_ids = batch['decoder_input_ids'].to(device)
         labels = batch['labels'].to(device)
 
-        # Normalize tokens for CPU compatibility
-        decoder_input_ids = decoder_input_ids.masked_fill(decoder_input_ids == -100, 0)
-        labels = labels.masked_fill(labels == -100, 0)
-
-        with torch.autocast(device_type='mps', dtype=torch.float16):  # Add mixed precision
-            class_pred, text_pred, texts_output = model(xb, decoder_input_ids)
-            class_loss = loss_fn(class_pred, yb.long())
-            text_loss = loss_fn(text_pred.view(-1, vocab_size), labels.view(-1).long())
-            loss = class_loss + text_loss
+        # Forward pass (no decoder input)
+        class_pred, text_pred = model(xb)
+        
+        # Calculate losses
+        class_loss = loss_fn(class_pred, yb.long())
+        assert text_pred.shape[:2] == labels.shape, f"Text pred shape {text_pred.shape} vs labels {labels.shape}"
+        text_loss = loss_fn(text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
+        loss = class_loss + text_loss
         
         train_predictions.append(class_pred.detach().cpu().numpy())
         train_targets.append(yb.detach().cpu().numpy())
@@ -406,7 +433,7 @@ for epoch in range(epochs):
             optimizer.zero_grad(set_to_none=True)
         
         # Add memory cleanup
-        del class_pred, text_pred, texts_output
+        del class_pred, text_pred
         if device == "mps":
             torch.mps.synchronize()  # Ensure MPS operations complete before continuing
     
@@ -429,16 +456,14 @@ for epoch in range(epochs):
         for batch in val_loader:
             x_val = batch['image'].to(device)
             y_val = batch['group'].to(device)
-            decoder_input_ids = batch['decoder_input_ids'].to(device)
             labels = batch['labels'].to(device)
 
             # Normalize tokens for CPU compatibility
-            decoder_input_ids = decoder_input_ids.masked_fill(decoder_input_ids == -100, 0)
             labels = labels.masked_fill(labels == -100, 0)
 
-            val_class_pred, val_text_pred, val_texts_output = model(x_val, decoder_input_ids)
+            val_class_pred, val_text_pred = model(x_val)
             class_loss = loss_fn(val_class_pred, y_val.long())
-            text_loss = loss_fn(val_text_pred.view(-1, vocab_size), labels.view(-1).long())
+            text_loss = loss_fn(val_text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
             loss = class_loss + text_loss
             val_loss_total += loss.item()
             val_text_loss_total += text_loss.item()
@@ -485,23 +510,21 @@ with torch.no_grad():
     for batch in test_loader:
         x_test = batch['image'].to(device)  
         y_test = batch['group'].to(device)
-        decoder_input_ids = batch['decoder_input_ids'].to(device)
         labels = batch['labels'].to(device)
 
         # Normalize tokens for CPU compatibility
-        decoder_input_ids = decoder_input_ids.masked_fill(decoder_input_ids == -100, 0)
         labels = labels.masked_fill(labels == -100, 0)
 
-        test_class_pred, test_text_pred, test_texts_output = model(x_test, decoder_input_ids)
+        test_class_pred, test_text_pred = model(x_test)
         class_loss = loss_fn(test_class_pred, y_test.long())
-        text_loss = loss_fn(test_text_pred.view(-1, vocab_size), labels.view(-1).long())
+        text_loss = loss_fn(test_text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
         loss = class_loss + text_loss
 
         avg_test_loss += loss.item()
         test_text_loss_total += text_loss.item()  # Accumulate test text loss
         all_predictions.append(test_class_pred.cpu().numpy())
         all_targets.append(y_test.cpu().numpy())
-        all_texts_output.append(test_texts_output)
+        all_texts_output.append(test_text_pred.cpu().numpy())
         all_text_predictions.append(test_text_pred.cpu().numpy())
 
 avg_test_loss = avg_test_loss / len(test_loader)
@@ -538,4 +561,4 @@ for i in range(len(all_targets)):
 
     print("Diagnosis: ", all_targets[i], "Prediction: ", torch.argmax(torch.tensor(all_predictions[i])))
     # print(f"Generated Text from Image (using softmax) {i+1}: {text_predictions}")
-    print(f"Generated Text from Image (using argmax) {i+1}: {all_texts_output[i]}")
+    print(f"Generated Text from Image (using argmax) {i+1}: {text_predictions}")

@@ -10,6 +10,7 @@ from sklearn.preprocessing import PowerTransformer, StandardScaler
 from torchvision import transforms
 import torchio as tio
 from sklearn.model_selection import train_test_split
+import torch.nn.functional as F
 
 class OASISDataLoader:
     def __init__(self, batch_size=32, max_text_length=50, train_size=0.6, test_size=0.4, val_size=0.5):
@@ -170,7 +171,13 @@ class OASISDataset(Dataset):
         decoder_input_ids[decoder_input_ids == self.tokenizer.pad_token_id] = -100
         labels = decoder_input_ids.clone()
         decoder_input_ids = decoder_input_ids[:, :-1]
-        labels = labels[:, 1:]
+        
+        # When processing labels:
+        labels = labels.squeeze()
+        if len(labels) > self.max_text_length:
+            labels = labels[:self.max_text_length]  # Truncate
+        else:
+            labels = F.pad(labels, (0, self.max_text_length - len(labels)), value=self.tokenizer.pad_token_id)
 
         return {
             'image': img,
@@ -179,7 +186,7 @@ class OASISDataset(Dataset):
             'mmse_transformed': torch.tensor(row['MMSE_transformed'], dtype=torch.float32),
             'mmse_bin': torch.tensor(row['MMSE_bin_codes'], dtype=torch.long),
             'decoder_input_ids': decoder_input_ids.squeeze(0),
-            'labels': labels.squeeze(0),
+            'labels': labels,
             'group': torch.tensor(row['Group'], dtype=torch.long)
         }
 

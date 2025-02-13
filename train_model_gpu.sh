@@ -1,6 +1,6 @@
 #!/bin/bash
 #SBATCH --job-name=3d_vision_transformer_GPU             # Job name
-#SBATCH --partition=gpu-v100-16g      # Partition
+#SBATCH --partition=gpu-a100-80g      # Partition
 #SBATCH --mail-type=ALL                    # Mail events (NONE, BEGIN, END, FAIL, ALL)
 #SBATCH --mail-user=nobr3541@colorado.edu     # Where to send mail
 #SBATCH --nodes=1                            # Run all processes on a single node
