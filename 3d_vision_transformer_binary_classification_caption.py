@@ -26,10 +26,10 @@ learning_rate = 0.0003           # You may try a slightly higher LR if needed (e
 n_heads = 4                  # Number of attention heads
 n_layers = 3                 # Number of transformer layers
 dropout = 0.2              # Dropout rate
-patch_size = 16
+patch_size = 32
 in_channels = 1
-out_channels = 128           # Model capacity
-embedding_text_dim = 128     # Model capacity
+out_channels = 256           # Model capacity
+embedding_text_dim = 256     # Model capacity
 vocab_size = tokenizer.vocab_size           # Vocabulary size based on  t5-small tokenizer
 max_seq_length = 300          # Maximum sequence length
 
@@ -64,9 +64,8 @@ print("img_width:", img_width)
 print("img_dims:", img_dims)
 print("================================================")
 print("Notes: ")
-print("Testing the model without teacher forcing in the test set. This also incorporates the Gumbel-Softmax differentiable approximation to sample the next token.")
-print("This model is also using the T5 start token for the decoder input and checking for the EOS token to break early.")
-print("Also trying out a learnable temperature parameter for the Gumbel-Softmax formula.")
+print("Using a larger model capacity of 256 for the transformer blocks and the decoder.")
+print("Using a beam search decoder at inference time to see the difference between the two decoding strategies.")
 print("================================================")
 
 # =============================================================================
@@ -255,98 +254,145 @@ class Transformer(nn.Module):
         self.cls_token = nn.Parameter(torch.randn(1, 1, out_channels))
         self.pos_encoding = PositionalEncoding(out_channels, img_dims, patch_size)
         self.pos_drop = nn.Dropout(p=dropout)
-        self.log_tau = nn.Parameter(torch.tensor(0.0))
+        self.log_tau = nn.Parameter(torch.tensor(0.0))  # For differentiable decoding (autoregressive)
         # Transformer blocks (encoder)
         self.blocks = nn.Sequential(
             *[Block(out_channels, n_heads=n_heads) for _ in range(n_layers)]
         )
         self.ln_f = nn.LayerNorm(out_channels)
-        # Classifier head (for binary or multi-class classification)
+        # Classifier head
         self.classifier = nn.Linear(out_channels, 2)
-        # Decoder head for generating natural language captions.
+        # Decoder head for generating text.
         self.decoder = TransformerDecoder(
             vocab_size=vocab_size,
-            d_model=embedding_text_dim,  # Note: adjust if you want to match out_channels
+            d_model=embedding_text_dim,
             n_layers=n_layers,
             n_heads=n_heads,
             dropout=dropout,
             max_seq_length=max_seq_length
         )
-        # Add start token embedding
-        self.start_token = nn.Parameter(torch.randn(1, 1, embedding_text_dim))  # Learnable start token
-
-    def forward(self, x):
-        """Forward pass using only MRI features"""
+    
+    def forward(self, x, generate_beam=False):
+        """
+        Forward pass using only MRI image features.
+        Returns classification logits and autoregressively decoded outputs.
+        """
         B = x.shape[0]
-        
-        # Existing encoder processing
-        x = self.patch_embedding(x)
+        # Encoder: Generate patch embeddings and append CLS token.
+        x = self.patch_embedding(x)  # (B, num_patches, out_channels)
         cls_tokens = self.cls_token.expand(B, -1, -1)
         enc_out = torch.cat((cls_tokens, x), dim=1)
         enc_out = self.pos_encoding(enc_out)
         enc_out = self.pos_drop(enc_out)
-        enc_out = self.blocks(enc_out) # (B, T, out_channels)
+        enc_out = self.blocks(enc_out)  # (B, seq_length, out_channels)
         
         # Classification head
         cls_feature = enc_out[:, 0, :]
         cls_logits = self.classifier(self.ln_f(cls_feature))
         
-        # Decoder initialization
-        start_tokens = self.start_token.expand(B, -1, -1)  # (B, 1, embedding_dim)
-        decoder_output = self.decode_autoregressive(enc_out)
+        # Autoregressive decoding (always needed for training)
+        text_logits = self.decode_autoregressive(enc_out)
         
-        return cls_logits, decoder_output
+        # Beam search only when explicitly requested
+        beam_text_ids = self.decode_beam_search(enc_out) if generate_beam else None
+        
+        return cls_logits, text_logits, beam_text_ids
 
     def decode_autoregressive(self, encoder_output):
         """
-        Auto-regressive decoding without teacher forcing:
+        Auto-regressive decoding without teacher forcing using a differentiable approach:
           - Starts with the T5 start token.
           - Uses Gumbel-Softmax for differentiable token selection.
-          - Breaks early if all sequences generate the EOS token.
-          
+          - Can be used during training.
         Returns:
-          Tensor of shape (B, max_seq_length, vocab_size) containing the logits.
+          Tensor of shape (B, max_seq_length, vocab_size) with logits.
         """
         B = encoder_output.shape[0]
-        # Use T5's pad_token_id as the start token
         start_token_id = tokenizer.pad_token_id
-        # Initialize the decoder input with the T5 start token.
         start_tokens = torch.full((B, 1), start_token_id, device=encoder_output.device, dtype=torch.long)
-        # Embed the start tokens.
         current_tokens = self.decoder.token_embedding(start_tokens)  # (B, 1, d_model)
         
-        # Pre-allocate a tensor to hold the logits at each timestep.
         all_logits = torch.zeros((B, max_seq_length, vocab_size), device=encoder_output.device)
-        
-        # Create an index tensor to convert one-hot vectors to token IDs.
+        # Create an index tensor for converting one-hot vectors to token IDs.
         index_tensor = torch.arange(vocab_size, device=encoder_output.device).unsqueeze(0)  # (1, vocab_size)
         
         for t in range(max_seq_length):
-            # Get decoder output for the current tokens.
             dec_out = self.decoder(current_tokens, encoder_output)  # (B, current_length, vocab_size)
-            # Extract the logits for the last time step.
             current_logits = dec_out[:, -1, :]  # (B, vocab_size)
             all_logits[:, t, :] = current_logits
             
-            # Use Gumbel-Softmax to sample next token (differentiable sample).
             tau = torch.exp(self.log_tau)  # learnable temperature parameter
             next_token_dist = F.gumbel_softmax(current_logits, tau=tau, hard=True)  # (B, vocab_size)
-            
-            # Compute the predicted token id in a differentiable manner.
+            # Obtain token ids differentiably as weighted sum.
             predicted_token_ids = (next_token_dist * index_tensor).sum(dim=-1)  # (B,)
             
-            # Break early if all sequences have generated the EOS token.
+            # Early stopping check if all sequences generated EOS.
             if (predicted_token_ids == tokenizer.eos_token_id).all():
                 break
             
-            # Compute the "next" embedding as a weighted sum of the embedding matrix.
+            # Compute the next embedding as weighted combination.
             next_embed = torch.matmul(next_token_dist, self.decoder.token_embedding.weight)  # (B, d_model)
             next_embed = next_embed.unsqueeze(1)  # (B, 1, d_model)
-            
-            # Append the next embedding to the current tokens.
             current_tokens = torch.cat([current_tokens, next_embed], dim=1)
         
         return all_logits  # (B, max_seq_length, vocab_size)
+    
+    def decode_beam_search(self, encoder_output, beam_size=3):
+        """
+        Auto-regressive decoding with beam search for inference:
+          - Starts with the T5 start token.
+          - Explores multiple decoding paths and selects the best one.
+          - Breaks early if all beams generate the EOS token.
+        Returns:
+          Tensor of shape (B, max_seq_length) containing predicted token IDs.
+        """
+        B = encoder_output.shape[0]
+        results = []
+        start_token_id = tokenizer.pad_token_id
+
+        for i in range(B):
+            enc_out_i = encoder_output[i:i+1]  # (1, encoder_seq_length, hidden_size)
+            start_tokens = torch.full((1, 1), start_token_id, device=encoder_output.device, dtype=torch.long)
+            initial_embed = self.decoder.token_embedding(start_tokens)  # (1, 1, d_model)
+            beams = [( [start_token_id], initial_embed, 0.0 )]  # (sequence, embedded sequence, cumulative log_prob)
+            
+            for t in range(max_seq_length - 1):
+                new_beams = []
+                for seq, emb, cum_log_prob in beams:
+                    # If EOS has already been generated, propagate the beam without expansion.
+                    if seq[-1] == tokenizer.eos_token_id:
+                        new_beams.append((seq, emb, cum_log_prob))
+                        continue
+                    
+                    dec_out = self.decoder(emb, enc_out_i)  # (1, current_seq_length, vocab_size)
+                    logits = dec_out[:, -1, :]  # (1, vocab_size)
+                    log_probs = torch.log_softmax(logits, dim=-1)
+                    topk_log_probs, topk_indices = torch.topk(log_probs, beam_size, dim=-1)
+                    topk_log_probs = topk_log_probs.squeeze(0)  # (beam_size,)
+                    topk_indices = topk_indices.squeeze(0)          # (beam_size,)
+                    
+                    for k in range(beam_size):
+                        next_token = topk_indices[k].item()
+                        new_prob = cum_log_prob + topk_log_probs[k].item()
+                        new_seq = seq + [next_token]
+                        next_token_tensor = torch.tensor([[next_token]], device=encoder_output.device, dtype=torch.long)
+                        next_embed = self.decoder.token_embedding(next_token_tensor)  # (1, 1, d_model)
+                        new_emb = torch.cat([emb, next_embed], dim=1)  # (1, current_seq_length+1, d_model)
+                        new_beams.append((new_seq, new_emb, new_prob))
+                
+                # Keep the best beam_size candidates.
+                beams = sorted(new_beams, key=lambda x: x[2], reverse=True)[:beam_size]
+                # Early stop if all beams in this sample have generated EOS.
+                if all(b[0][-1] == tokenizer.eos_token_id for b in beams):
+                    break
+            
+            # Select the best candidate.
+            best_seq = sorted(beams, key=lambda x: x[2], reverse=True)[0][0]
+            # Pad sequence to max_seq_length.
+            best_seq += [tokenizer.pad_token_id] * (max_seq_length - len(best_seq))
+            results.append(best_seq)
+        
+        return torch.tensor(results, device=encoder_output.device, dtype=torch.long)
 
 # =============================================================================
 # Training Setup
@@ -409,7 +455,7 @@ for epoch in range(epochs):
         labels = batch['labels'].to(device)
 
         # Forward pass (no decoder input)
-        class_pred, text_pred = model(xb)
+        class_pred, text_pred, _ = model(xb)
         
         # Calculate losses
         class_loss = loss_fn(class_pred, yb.long())
@@ -461,7 +507,7 @@ for epoch in range(epochs):
             # Normalize tokens for CPU compatibility
             labels = labels.masked_fill(labels == -100, 0)
 
-            val_class_pred, val_text_pred = model(x_val)
+            val_class_pred, val_text_pred, _ = model(x_val)
             class_loss = loss_fn(val_class_pred, y_val.long())
             text_loss = loss_fn(val_text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
             loss = class_loss + text_loss
@@ -497,35 +543,52 @@ for epoch in range(epochs):
         break
 
 # =============================================================================
-# Testing the Model
+# Testing the Model with Both Decoding Strategies (Used Only on the Test Set)
 # =============================================================================
 model.eval()
 avg_test_loss = 0
 test_text_loss_total = 0  # Accumulator for test text loss
 all_predictions = []
 all_targets = []
-all_texts_output = []
-all_text_predictions = []
+all_autoregressive_ids = []  # To store outputs from autoregressive argmax decoder
+all_beam_ids = []  # To store outputs from beam search decoder
+
 with torch.no_grad():
     for batch in test_loader:
         x_test = batch['image'].to(device)  
         y_test = batch['group'].to(device)
         labels = batch['labels'].to(device)
 
-        # Normalize tokens for CPU compatibility
+        # Normalize tokens for CPU compatibility.
         labels = labels.masked_fill(labels == -100, 0)
-
-        test_class_pred, test_text_pred = model(x_test)
-        class_loss = loss_fn(test_class_pred, y_test.long())
-        text_loss = loss_fn(test_text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
-        loss = class_loss + text_loss
-
-        avg_test_loss += loss.item()
-        test_text_loss_total += text_loss.item()  # Accumulate test text loss
+        
+        # Get the classification predictions from the forward pass.
+        test_class_pred, text_logits, beam_text_ids = model(x_test, generate_beam=True)
+        
+        # (Optional) Compute losses and accumulate metrics on the classification head and text outputs here.
+        # For demonstration purposes, we will only print out some decoded text outputs.
         all_predictions.append(test_class_pred.cpu().numpy())
         all_targets.append(y_test.cpu().numpy())
-        all_texts_output.append(test_text_pred.cpu().numpy())
-        all_text_predictions.append(test_text_pred.cpu().numpy())
+        all_autoregressive_ids.append(text_logits.cpu().numpy())
+        all_beam_ids.append(beam_text_ids.cpu().numpy())
+        
+        # Print out the decoded texts for each sample in this batch.
+        for i in range(x_test.shape[0]):
+            # Decode autoregressive (argmax) output - convert logits to token IDs
+            autoreg_ids = torch.argmax(text_logits[i], dim=-1).tolist()
+            autoreg_text = tokenizer.decode(autoreg_ids, skip_special_tokens=True)
+            
+            # Decode beam search output - already contains token IDs
+            beam_ids = beam_text_ids[i].tolist()
+            beam_text = tokenizer.decode(beam_ids, skip_special_tokens=True)
+            
+            print(f"Sample {i}:")
+            print("Autoregressive (argmax) output:", autoreg_text)
+            print("Beam search output:", beam_text)
+            print("----------")
+        
+        # (Break out after printing one batch if desired for a quick comparison)
+        # break
 
 avg_test_loss = avg_test_loss / len(test_loader)
 avg_test_text_loss = test_text_loss_total / len(test_loader)
@@ -533,32 +596,8 @@ print(f"Test loss: {avg_test_loss:.4f}, test_text_loss: {avg_test_text_loss:.4f}
 
 all_predictions = np.concatenate(all_predictions)
 all_targets = np.concatenate(all_targets)
-all_texts_output = np.concatenate(all_texts_output)
-all_text_predictions = np.concatenate(all_text_predictions)
+all_autoregressive_ids = np.concatenate(all_autoregressive_ids)
+all_beam_ids = np.concatenate(all_beam_ids)
 
 test_acc = (torch.argmax(torch.tensor(all_predictions), dim=1) == torch.tensor(all_targets)).float().mean()
 print(f"Test accuracy: {test_acc:.4f}")
-
-# Print the first 10 texts output
-for i in range(len(all_targets)):
-    text_logits = all_text_predictions[i]
-    print("Text logits: ", text_logits.shape)  # e.g., (1, 300, vocab_size)
-    
-    # Convert logits to probabilities and sample token IDs
-    text_probs = torch.softmax(torch.tensor(text_logits), dim=-1)
-    # Reshape to 2D: (B*T, vocab_size)
-    probs_flat = text_probs.view(-1, vocab_size).cpu()
-    # Sample tokens using multinomial sampling
-    sampled_ids = torch.multinomial(probs_flat, num_samples=1)  # shape: (B*T, 1)
-    # Reshape back to (B, T)
-    sampled_ids = sampled_ids.view(1, -1)
-    
-    # Squeeze the batch dimension to get a 1D list and convert tensor to Python list
-    sampled_ids_list = sampled_ids.squeeze(0).tolist()
-    
-    # Decode the list of token IDs (which must be a flat 1D list)
-    text_predictions = tokenizer.decode(sampled_ids_list, skip_special_tokens=True)
-
-    print("Diagnosis: ", all_targets[i], "Prediction: ", torch.argmax(torch.tensor(all_predictions[i])))
-    # print(f"Generated Text from Image (using softmax) {i+1}: {text_predictions}")
-    print(f"Generated Text from Image (using argmax) {i+1}: {text_predictions}")
