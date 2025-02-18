@@ -32,6 +32,7 @@ out_channels = 256           # Model capacity
 embedding_text_dim = 256     # Model capacity
 vocab_size = tokenizer.vocab_size           # Vocabulary size based on  t5-small tokenizer
 max_seq_length = 100          # Maximum sequence length
+accumulation_steps = 4 # Number of steps to accumulate gradients over (effective batch size = batch_size * accumulation_steps)
 
 # Early stopping parameters
 patience = 20              # Early stopping patience
@@ -289,6 +290,7 @@ class Transformer(nn.Module):
         enc_out = self.pos_encoding(enc_out)
         enc_out = self.pos_drop(enc_out)
         enc_out = self.blocks(enc_out)  # (B, seq_length, out_channels)
+        print(f"enc_out shape: {enc_out.shape}")
         
         # Classification head
         cls_feature = enc_out[:, 0, :]
