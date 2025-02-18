@@ -31,7 +31,7 @@ in_channels = 1
 out_channels = 256           # Model capacity
 embedding_text_dim = 256     # Model capacity
 vocab_size = tokenizer.vocab_size           # Vocabulary size based on  t5-small tokenizer
-max_seq_length = 300          # Maximum sequence length
+max_seq_length = 100          # Maximum sequence length
 
 # Early stopping parameters
 patience = 20              # Early stopping patience
@@ -66,6 +66,10 @@ print("================================================")
 print("Notes: ")
 print("Using a larger model capacity of 256 for the transformer blocks and the decoder.")
 print("Using a beam search decoder at inference time to see the difference between the two decoding strategies.")
+print("Using a max sequence length of 100 for the decoder.")
+print("Using equal weights for the class and text loss.")
+print("Increase the Beam search to 6 for better results.")
+print("Using the Varied Verbose patient descrirptions to train the model.")
 print("================================================")
 
 # =============================================================================
@@ -337,7 +341,7 @@ class Transformer(nn.Module):
         
         return all_logits  # (B, max_seq_length, vocab_size)
     
-    def decode_beam_search(self, encoder_output, beam_size=3):
+    def decode_beam_search(self, encoder_output, beam_size=6):
         """
         Auto-regressive decoding with beam search for inference:
           - Starts with the T5 start token.
@@ -429,13 +433,14 @@ loss_fn = nn.CrossEntropyLoss()
 # scheduler = torch.optim.lr_scheduler.CosineAnnealingLR(optimizer, T_max=epochs, eta_min=1e-6)
 scheduler = torch.optim.lr_scheduler.ReduceLROnPlateau(optimizer, mode='min', factor=0.1, patience=5, min_lr=1e-6)
 
+# Add these at the start of training setup
+best_val_loss = float('inf')
+checkpoint_path = 'best_model.pth'
+epochs_no_improve = 0
+
 # =============================================================================
 # Training Loop
 # =============================================================================
-best_val_loss = float('inf')
-epochs_no_improve = 0
-accumulation_steps = 4  # Adjust this value based on your requirements
-
 for epoch in range(epochs):
     model.train()
     train_loss_total = 0
@@ -461,7 +466,7 @@ for epoch in range(epochs):
         class_loss = loss_fn(class_pred, yb.long())
         assert text_pred.shape[:2] == labels.shape, f"Text pred shape {text_pred.shape} vs labels {labels.shape}"
         text_loss = loss_fn(text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
-        loss = class_loss + text_loss
+        loss = (class_loss + text_loss) / 2
         
         train_predictions.append(class_pred.detach().cpu().numpy())
         train_targets.append(yb.detach().cpu().numpy())
@@ -510,7 +515,7 @@ for epoch in range(epochs):
             val_class_pred, val_text_pred, _ = model(x_val)
             class_loss = loss_fn(val_class_pred, y_val.long())
             text_loss = loss_fn(val_text_pred.view(-1, vocab_size), labels[:, :max_seq_length].contiguous().view(-1).long())
-            loss = class_loss + text_loss
+            loss = (class_loss + text_loss) / 2
             val_loss_total += loss.item()
             val_text_loss_total += text_loss.item()
             
@@ -531,19 +536,38 @@ for epoch in range(epochs):
           f"val_loss {avg_val_loss:.4f}, val_text_loss {avg_val_text_loss:.4f}, "
           f"train_acc {train_acc:.4f}, val_acc {val_acc:.4f}")
     
-    # Early stopping logic
+    # After validation phase
     if avg_val_loss < best_val_loss:
+        print(f"Validation loss improved from {best_val_loss:.4f} to {avg_val_loss:.4f}. Saving model...")
         best_val_loss = avg_val_loss
         epochs_no_improve = 0
+        # Save full model state including optimizer
+        torch.save({
+            'epoch': epoch,
+            'model_state_dict': model.state_dict(),
+            'optimizer_state_dict': optimizer.state_dict(),
+            'loss': avg_val_loss,
+        }, checkpoint_path)
     else:
         epochs_no_improve += 1
 
+    # Early stopping check
     if epochs_no_improve >= patience:
-        print("Early stopping triggered")
+        print("Early stopping triggered. Rolling back to best model.")
+        # Load the best model before breaking
+        checkpoint = torch.load(checkpoint_path)
+        model.load_state_dict(checkpoint['model_state_dict'])
+        optimizer.load_state_dict(checkpoint['optimizer_state_dict'])
         break
 
+# After training completes, load best model for testing
+if not epochs_no_improve >= patience:  # If we didn't already load during early stopping
+    print("Loading best model for final testing")
+    checkpoint = torch.load(checkpoint_path)
+    model.load_state_dict(checkpoint['model_state_dict'])
+
 # =============================================================================
-# Testing the Model with Both Decoding Strategies (Used Only on the Test Set)
+# Testing the Model (Now uses best checkpoint)
 # =============================================================================
 model.eval()
 avg_test_loss = 0
